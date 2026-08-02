@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>测试页面 - Kimi</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            /* Steam 经典暗蓝色背景，带一点商店页的渐变质感 */
+            background: #1b2838;
+            background: linear-gradient(135deg, #1b2838 0%, #2a475e 60%, #1b2838 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: "Motiva Sans", "Segoe UI", Arial, "Microsoft YaHei", sans-serif;
+            color: #c7d5e0; /* Steam 标志性的亮灰近白字体色 */
+        }
+
+        .container {
+            text-align: center;
+            padding: 48px 64px;
+            background: rgba(23, 26, 33, 0.6); /* 深色卡片，呼应 Steam 客户端深色面板 */
+            border: 1px solid #2a475e;
+            border-radius: 4px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #ffffff;
+        }
+
+        .accent {
+            margin-top: 16px;
+            font-size: 14px;
+            color: #66c0f4; /* Steam 高亮蓝 */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>这是个测试页面</h1>
+        <p class="accent">test_page_from_kimi.html</p>
+    </div>
+</body>
+</html>
