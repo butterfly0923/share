@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>RE Engine Games · Library Check</title>
+<style>
+  body { background: #1b2838; color: #c7d5e0; font-family: "Segoe UI","Microsoft YaHei",sans-serif; margin: 0; padding: 32px; }
+  h1 { color: #fff; font-size: 22px; font-weight: normal; }
+  .summary { color: #8f98a0; margin-bottom: 20px; font-size: 14px; line-height: 1.8; }
+  table { border-collapse: collapse; width: 100%; background: #16202d; }
+  th, td { padding: 8px 14px; text-align: left; border-bottom: 1px solid #2a475e; font-size: 14px; }
+  th { background: #2a475e; color: #fff; position: sticky; top: 0; cursor: pointer; user-select: none; white-space: nowrap; }
+  th:hover { background: #3a5f7d; }
+  th .arrow { color: #66c0f4; margin-left: 4px; }
+  tr:hover { background: #2a475e; }
+  a { color: #66c0f4; text-decoration: none; }
+  a:hover { color: #fff; text-decoration: underline; }
+  td.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .own { padding: 2px 10px; border-radius: 3px; font-size: 12px; white-space: nowrap; }
+  .own-yes { background: #4c6b22; color: #d6eda6; }
+  .own-no { background: #3a3a3a; color: #9a9a9a; }
+</style>
+</head>
+<body>
+<h1>RE Engine Games · Steam Library Check</h1>
+<p class="summary">
+29 games · Owned: 14 · Not owned: 15<br>
+Ownership based on library data from 2026-08-02 (7394 games) · Click any column header to sort
+</p>
+<table id="t">
+<thead><tr>
+  <th data-k="i" data-t="n">#</th>
+  <th data-k="cn" data-t="s">中文名</th>
+  <th data-k="en" data-t="s">Title</th>
+  <th data-k="appid" data-t="n" style="text-align:right">AppID</th>
+  <th data-k="date" data-t="s" style="text-align:right">Release Date</th>
+  <th data-k="owned" data-t="n">Owned</th>
+</tr></thead>
+<tbody></tbody>
+</table>
+<script>
+const DATA = [{"i": 1, "cn": "生化危机7", "en": "Resident Evil 7 Biohazard", "appid": 418370, "date": "2017-01-23", "owned": 1}, {"i": 2, "cn": "生化危机2 重制版", "en": "Resident Evil 2", "appid": 883710, "date": "2019-01-24", "owned": 1}, {"i": 3, "cn": "鬼泣5", "en": "Devil May Cry 5", "appid": 601150, "date": "2019-03-07", "owned": 1}, {"i": 4, "cn": "生化危机3 重制版", "en": "Resident Evil 3", "appid": 952060, "date": "2020-04-02", "owned": 1}, {"i": 5, "cn": "生化危机：抵抗", "en": "Resident Evil Resistance", "appid": 952070, "date": "2020-04-03", "owned": 1}, {"i": 6, "cn": "卡普空街机合集", "en": "Capcom Arcade Stadium", "appid": 1515950, "date": "2021-05-24", "owned": 1}, {"i": 7, "cn": "经典回归 魔界村", "en": "Ghosts 'n Goblins Resurrection", "appid": 1375400, "date": "2021-05-31", "owned": 1}, {"i": 8, "cn": "怪物猎人：崛起", "en": "MONSTER HUNTER RISE", "appid": 1446780, "date": "2022-01-12", "owned": 1}, {"i": 9, "cn": "生化危机8：村庄", "en": "Resident Evil Village", "appid": 1196590, "date": "2021-05-06", "owned": 1}, {"i": 10, "cn": "卡普空街机合集 第二弹", "en": "Capcom Arcade 2nd Stadium", "appid": 1755910, "date": "2022-07-21", "owned": 1}, {"i": 11, "cn": "生化危机 Re:Verse", "en": "Resident Evil Re:Verse", "appid": 1236300, "date": "2022-10-20", "owned": 1}, {"i": 12, "cn": "生化危机4 重制版", "en": "Resident Evil 4", "appid": 2050650, "date": "2023-03-23", "owned": 1}, {"i": 13, "cn": "街头霸王6", "en": "Street Fighter™ 6", "appid": 1364780, "date": "2023-06-01", "owned": 0}, {"i": 14, "cn": "幽灵诡计", "en": "Ghost Trick: Phantom Detective", "appid": 1967430, "date": "2023-06-29", "owned": 0}, {"i": 15, "cn": "原始袭变", "en": "Exoprimal", "appid": 1286320, "date": "2023-07-13", "owned": 0}, {"i": 16, "cn": "逆转裁判456 王泥喜精选集", "en": "Apollo Justice: Ace Attorney Trilogy", "appid": 2187220, "date": "2024-01-24", "owned": 0}, {"i": 17, "cn": "龙之信条2", "en": "Dragon's Dogma 2", "appid": 2054970, "date": "2024-03-21", "owned": 0}, {"i": 18, "cn": "祇：女神之路", "en": "Kunitsu-Gami: Path of the Goddess", "appid": 2510710, "date": "2024-07-18", "owned": 0}, {"i": 19, "cn": "丧尸围城 豪华复刻版", "en": "Dead Rising Deluxe Remaster", "appid": 2527390, "date": "2024-09-18", "owned": 0}, {"i": 20, "cn": "怪物猎人：荒野", "en": "Monster Hunter Wilds", "appid": 2246340, "date": "2025-02-27", "owned": 0}, {"i": 21, "cn": "卡普空格斗合集2", "en": "Capcom Fighting Collection 2", "appid": 2400430, "date": "2025-05-15", "owned": 0}, {"i": 22, "cn": "鬼武者2 高清复刻", "en": "Onimusha 2: Samurai's Destiny", "appid": 3046600, "date": "2025-05-22", "owned": 1}, {"i": 23, "cn": "生化危机：安魂曲", "en": "Resident Evil Requiem", "appid": 3764200, "date": "2026-02-26", "owned": 0}, {"i": 24, "cn": "怪物猎人物语3：Twisted Reflection", "en": "Monster Hunter Stories 3: Twisted Reflection", "appid": 2852190, "date": "2026-03-12", "owned": 0}, {"i": 25, "cn": "流星洛克人遗产合集", "en": "Mega Man Star Force Legacy Collection", "appid": 3500390, "date": "2026-03-26", "owned": 0}, {"i": 26, "cn": "Pragmata", "en": "PRAGMATA", "appid": 3357650, "date": "2026-04-16", "owned": 1}, {"i": 27, "cn": "鬼武者：剑之道", "en": "Onimusha: Way of the Sword", "appid": 2638890, "date": "2026-09-03", "owned": 0}, {"i": 28, "cn": "洛克人：Dual Override", "en": "Mega Man: Dual Override", "appid": 4223290, "date": "2027", "owned": 0}, {"i": 29, "cn": "大神 续作", "en": "Okami sequel", "appid": 0, "date": "", "owned": 0}];
+const tbody = document.querySelector('#t tbody');
+let sortKey = 'i', sortAsc = true;
+function esc(s) { return String(s).replace(/</g,'&lt;'); }
+function render() {
+  tbody.innerHTML = DATA.map(r => `<tr>
+    <td class="num">${r.i}</td>
+    <td>${r.appid ? `<a href="https://store.steampowered.com/app/${r.appid}/" target="_blank">${esc(r.cn)}</a>` : esc(r.cn)}</td>
+    <td>${esc(r.en)}</td>
+    <td class="num">${r.appid || '—'}</td>
+    <td class="num">${r.date || 'TBD'}</td>
+    <td>${r.owned ? '<span class="own own-yes">✔ Yes</span>' : '<span class="own own-no">No</span>'}</td>
+  </tr>`).join('');
+}
+function applySort() {
+  DATA.sort((a, b) => {
+    const x = a[sortKey], y = b[sortKey];
+    const c = (typeof x === 'number') ? x - y : String(x).localeCompare(String(y), 'zh');
+    return sortAsc ? c : -c;
+  });
+  document.querySelectorAll('th .arrow').forEach(e => e.remove());
+  const th = document.querySelector(`th[data-k="${sortKey}"]`);
+  if (th) th.insertAdjacentHTML('beforeend', `<span class="arrow">${sortAsc ? '▲' : '▼'}</span>`);
+  render();
+}
+document.querySelectorAll('th[data-k]').forEach(th => th.addEventListener('click', () => {
+  const k = th.dataset.k;
+  if (sortKey === k) sortAsc = !sortAsc; else { sortKey = k; sortAsc = true; }
+  applySort();
+}));
+applySort();
+</script>
+</body>
+</html>
