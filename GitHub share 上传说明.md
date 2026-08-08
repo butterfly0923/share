@@ -1,65 +1,95 @@
-# GitHub share 仓库 · 文件分享机制说明（提示词）
+# GitHub share 仓库 · 通用上传指南（给任何环境下的 Kimi）
 
-> 用途：把下面「提示词」部分整段复制，粘贴到任何一个新会话中（包括其他项目会话、网页版 Kimi、或其他 AI），对方就能按照约定帮你把文件上传到 GitHub share 仓库并生成公开访问链接。
-> 整理日期：2026-08-08
+> 用途：把下面「提示词」部分整段复制，粘贴到任何一个新会话中——无论是本机的 Kimi Work、远端服务器上的 Kimi Claw，还是其他任何 AI 运行方式——对方都能按约定把文件上传到我的 GitHub share 仓库并生成公开访问链接。
+> 整理日期：2026-08-08（v2：通用环境版）
 
 ---
 
 ## 提示词（从这里开始复制）
 
-我（用户）有一个用于公开分享文件的 GitHub 仓库，当我说「**上传到我的 GitHub 上的 share 仓库**」时，请按以下约定执行：
+我（用户）有一个用于公开分享文件的 GitHub 仓库。当我说「**上传到我的 GitHub 上的 share 仓库**」时，请按以下约定执行。
 
 ### 基本信息
 
-- 仓库地址：`https://github.com/butterfly0923/share`（**公开仓库**，GitHub Pages 已开启，分支为 `main`）
-- 本机克隆位置：`C:\Users\Shawn Zhang\Documents\kimi\workspace\share`
-- 本机 git 凭据已于 2026-08-02 授权并缓存（Windows 凭据管理器），`git push` 无需再向我索要账号密码或 token
+- 仓库：`https://github.com/butterfly0923/share`（**公开仓库**，GitHub Pages 已开启，分支 `main`）
+- 文件 push 到 `main` 后，约 **1~2 分钟**部署生效，公开访问地址为：
+  ```
+  https://butterfly0923.github.io/share/<文件相对路径>
+  ```
+- URL 与仓库内文件路径一一对应、**大小写敏感**；`.html` 直接渲染成网页，二进制文件自动触发下载
+- ⚠️ 这是公开仓库，**不要上传隐私数据、凭据或敏感文件**
+- 完成后请把可访问的链接给我，方便我转发给朋友
 
-### 标准操作流程
+### 第一步：判断你运行在哪种环境
 
-1. 把要分享的文件复制到本地克隆目录 `C:\Users\Shawn Zhang\Documents\kimi\workspace\share\` 中（保持我指定的文件名；可以放子目录，URL 路径与文件路径一致）
-2. 在该目录执行：
-   ```bash
-   git add <文件名>
-   git commit -m "Add <文件名>"
-   git push origin main
-   ```
-3. 如果 push 被拒绝（远端有我通过网页上传的新提交），先执行 `git pull origin main --rebase`，再重新 push
-4. push 成功后**等待约 1~2 分钟**（GitHub Pages 部署有延迟），文件即可通过以下地址公开访问：
-   ```
-   https://butterfly0923.github.io/share/<文件名>
-   ```
-5. 完成后把这条可访问的链接给我，方便我直接转发给朋友
+**情况 A：你运行在用户自己的 PC 上（Kimi Work，Windows）**
 
-### 访问行为说明
+本机已有克隆和缓存凭据，直接使用：
+- 克隆目录：`C:\Users\Shawn Zhang\Documents\kimi\workspace\share`
+- git 凭据已缓存在 Windows 凭据管理器，push 不需要任何授权
+- 流程：把文件复制进克隆目录 → `git add` → `git commit` → push 被拒则先 `git pull origin main --rebase` → `git push origin main`
 
-- `.html` 文件：浏览器中**直接渲染为网页**，适合分享报告、列表页
-- 二进制文件（如 .dll、.zip）：访问链接时**自动触发下载**
-- 文件名大小写敏感，URL 必须与文件名完全一致
-- 仓库根目录放 `index.html` 可以让链接更短，但我一般保留原文件名，让这个仓库保持通用
+**情况 B：其他任何环境（Kimi Claw、远端服务器、Linux/macOS，或没有缓存凭据的机器）**
 
-### 注意事项
+你**没有**现成的推送权限，需要先向我要一个 **GitHub Personal Access Token (PAT)**。请这样对我说：
 
-- 这是**公开仓库**，任何人都能访问——不要上传隐私数据、凭据或敏感文件
-- 如果我要分享的文件在别的目录，先把文件复制到克隆目录再提交，不要移动原文件
-- 我的浏览器装有配套 Tampermonkey 脚本，在仓库 Code 页面的文件列表里每行会显示 "Deploy Link"，点击直达部署后的地址——所以只需告诉我文件名即可，我可以自己核对链接
+> 「请你在 GitHub 上生成一个 fine-grained Personal Access Token（Settings → Developer settings → Personal access tokens → Fine-grained tokens），Repository access 只选 `butterfly0923/share` 这一个仓库，Permissions 里把 **Contents** 设为 **Read and write**，然后把 token 发给我。用完后你可以随时在同一个页面把它吊销（Revoke）。」
+
+拿到 token 后，下面两种方式任选其一（**优先方式一**，不依赖 git）：
+
+### 方式一：GitHub REST API 直传（推荐，任何有 curl 的环境都能用）
+
+适合一次上传一两个文件，无需安装 git、无需克隆仓库。
+
+```bash
+TOKEN=<用户提供的PAT>
+
+# 1. 把文件内容编码为 base64（单行）
+#    Linux/macOS:   base64 -w0 文件名
+#    Windows 可用:  py -c "import base64,sys;print(base64.b64encode(open(sys.argv[1],'rb').read()).decode())" 文件名
+
+# 2. 上传（仓库内目标路径需要做 URL 编码，例如空格是 %20）
+curl -X PUT \
+  -H "Authorization: Bearer $TOKEN" \
+  -H "Accept: application/vnd.github+json" \
+  "https://api.github.com/repos/butterfly0923/share/contents/<URL编码后的目标路径>" \
+  -d '{"message": "Add <文件名>", "content": "<base64内容>"}'
+```
+
+- 返回 JSON 中出现 `"content"` 和 `"commit"` 即成功
+- **如果要覆盖同名旧文件**：先 `curl -H "Authorization: Bearer $TOKEN" https://api.github.com/repos/butterfly0923/share/contents/<路径>` 拿到该文件的 `"sha"`，然后在 PUT 的 JSON 里加 `"sha": "<拿到的sha>"`
+- 注意保护 token：不要写进任何会上传的文件，不要回显到日志里；用完后提醒我吊销
+
+### 方式二：git clone + token 推送（适合批量文件）
+
+```bash
+git clone "https://x-access-token:<PAT>@github.com/butterfly0923/share.git"
+cd share
+cp <要上传的文件> .
+git add . && git commit -m "Add files"
+git push origin main
+```
+
+push 被拒（远端有新提交）时先 `git pull origin main --rebase` 再 push。
+
+### 第三步：验证
+
+push/API 调用成功后等待 1~2 分钟，然后验证：
+
+```bash
+curl -s -o /dev/null -w "%{http_code}" "https://butterfly0923.github.io/share/<URL编码后的文件路径>"
+```
+
+返回 `200` 即部署完成，把这条链接交给我。
 
 ## 提示词（到这里结束）
 
 ---
 
-## 附：这套机制是怎么搭起来的（背景记录，2026-08-02）
+## 附：这套机制的背景（2026-08-02 搭建）
 
-1. 在 GitHub 免费账号 `butterfly0923` 下新建公开仓库 `share`（免费账号的公开仓库可正常开启 GitHub Pages，无限制；Pages 域名是 `github.io` 而非 `github.com`，这是 GitHub 的静态托管服务域名）
-2. 仓库 Settings → Pages → Source 选择 `main` 分支根目录，开启 GitHub Pages
-3. 把仓库克隆到本机 workspace，第一次 `git push` 时通过 Git Credential Manager 完成授权并缓存凭据
-4. 安装 Tampermonkey 脚本：精确匹配 `https://github.com/butterfly0923/share`，在文件列表表格中给每行插入 "Deploy Link" 列（链接拼接为 `https://butterfly0923.github.io/share/` + 文件名），同时在 thead 中补充对应表头，保持表头与表身列数一致
-
-### 备选分享渠道对比
-
-| 渠道 | 结果 |
-|---|---|
-| 香港服务器 | 默认需要密码，分享麻烦，弃用 |
-| transfer.sh | 被公司防火墙拦截，不可用 |
-| Netlify Drop | 可用，适合一次性拖拽分享 |
-| **GitHub + Pages（本方案）** | ✅ 最终采用：可版本管理、链接稳定、网页直开、二进制自动下载 |
+1. GitHub 免费账号 `butterfly0923` 下的公开仓库 `share`；免费账号的公开仓库可正常开启 GitHub Pages（Settings → Pages → Source 选 `main` 分支根目录）
+2. Pages 域名是 `github.io` 而非 `github.com`——这是 GitHub 的静态托管服务域名，仓库代码页 `github.com/.../blob/...` 链接不能直接预览，必须走 `github.io` 链接
+3. 用户 PC（Kimi Work）上：仓库克隆在 workspace，凭据经 Git Credential Manager 缓存，可免密 push
+4. 用户浏览器装有 Tampermonkey 脚本：在仓库 Code 页面的文件列表中自动给每行插入 "Deploy Link" 列，点击直达部署地址
+5. 备选渠道曾评估：香港服务器（要密码，麻烦）、transfer.sh（被公司防火墙拦截）、Netlify Drop（可用，适合一次性拖拽）——最终采用 GitHub + Pages 方案：可版本管理、链接稳定、网页直开、二进制自动下载
