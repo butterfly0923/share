@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《无光之海》Sunless Sea 100% 全成就中文完全指南</title>
+    <style>
+        :root {
+            --steam-bg: #171a21;
+            --steam-bg-light: #1b2838;
+            --steam-card: #2a475e;
+            --steam-card-hover: #3d6a8a;
+            --steam-blue: #66c0f4;
+            --steam-blue-dark: #4a9fcf;
+            --steam-text: #c7d5e0;
+            --steam-text-dim: #8f98a0;
+            --steam-green: #5c7e10;
+            --steam-yellow: #d2b512;
+            --steam-red: #b22222;
+            --steam-orange: #cd5413;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Motiva Sans", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+            background: linear-gradient(135deg, var(--steam-bg) 0%, var(--steam-bg-light) 100%);
+            color: var(--steam-text);
+            line-height: 1.7;
+            min-height: 100vh;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            background: linear-gradient(180deg, rgba(102,192,244,0.1) 0%, transparent 100%);
+            border-bottom: 2px solid var(--steam-blue);
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 2.5em;
+            color: var(--steam-blue);
+            text-shadow: 0 0 20px rgba(102,192,244,0.3);
+            margin-bottom: 15px;
+        }
+        
+        .header .subtitle {
+            color: var(--steam-text-dim);
+            font-size: 1.1em;
+        }
+        
+        .header .meta {
+            margin-top: 20px;
+            padding: 15px 25px;
+            background: var(--steam-card);
+            border-radius: 8px;
+            display: inline-block;
+        }
+        
+        .header .meta-item {
+            display: inline-block;
+            margin: 0 15px;
+            color: var(--steam-text);
+        }
+        
+        .header .meta-item strong {
+            color: var(--steam-blue);
+        }
+        
+        /* Content */
+        .content {
+            background: var(--steam-card);
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+        }
+        
+        /* Typography */
+        h1 {
+            color: var(--steam-blue);
+            font-size: 2em;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--steam-blue);
+        }
+        
+        h2 {
+            color: var(--steam-blue);
+            font-size: 1.6em;
+            margin: 35px 0 18px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid rgba(102,192,244,0.3);
+        }
+        
+        h3 {
+            color: var(--steam-blue-dark);
+            font-size: 1.3em;
+            margin: 25px 0 15px;
+            padding-left: 12px;
+            border-left: 4px solid var(--steam-blue);
+        }
+        
+        h4 {
+            color: var(--steam-text);
+            font-size: 1.1em;
+            margin: 20px 0 10px;
+            padding: 10px 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 6px;
+            border-left: 3px solid var(--steam-text-dim);
+        }
+        
+        h4.achievement {
+            background: rgba(102,192,244,0.08);
+            border-left-color: var(--steam-blue);
+        }
+        
+        p {
+            margin: 12px 0;
+            color: var(--steam-text);
+        }
+        
+        /* Difficulty Circle */
+        .diff-circle {
+            display: inline-block;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            margin-right: 8px;
+            vertical-align: middle;
+            box-shadow: 0 0 6px currentColor;
+            flex-shrink: 0;
+        }
+        
+        /* Lists */
+        ul, ol {
+            margin: 12px 0 12px 25px;
+            padding-left: 15px;
+        }
+        
+        li {
+            margin: 6px 0;
+            color: var(--steam-text);
+        }
+        
+        li::marker {
+            color: var(--steam-blue);
+        }
+        
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(0,0,0,0.15);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        th {
+            background: var(--steam-bg-light);
+            color: var(--steam-blue);
+            padding: 12px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 10px 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: var(--steam-text);
+        }
+        
+        tr:hover td {
+            background: rgba(102,192,244,0.05);
+        }
+        
+        /* Blockquote */
+        blockquote {
+            margin: 15px 0;
+            padding: 15px 20px;
+            background: rgba(102,192,244,0.08);
+            border-left: 4px solid var(--steam-blue);
+            border-radius: 0 8px 8px 0;
+            color: var(--steam-text-dim);
+            font-style: italic;
+        }
+        
+        blockquote strong {
+            color: var(--steam-blue);
+        }
+        
+        /* Inline elements */
+        strong {
+            color: var(--steam-blue);
+            font-weight: 600;
+        }
+        
+        code {
+            background: rgba(0,0,0,0.3);
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: "Consolas", "Monaco", monospace;
+            font-size: 0.9em;
+            color: var(--steam-blue);
+        }
+        
+        a {
+            color: var(--steam-blue);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.2s;
+        }
+        
+        a:hover {
+            border-bottom-color: var(--steam-blue);
+        }
+        
+        hr {
+            border: none;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--steam-blue), transparent);
+            margin: 30px 0;
+        }
+        
+        /* Difficulty Legend */
+        .difficulty-legend {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .difficulty-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 12px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+            font-size: 0.9em;
+        }
+        
+        /* Section badges */
+        .section-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-right: 8px;
+        }
+        
+        .badge-green { background: rgba(92,126,16,0.2); color: #8bc34a; }
+        .badge-yellow { background: rgba(210,181,18,0.2); color: #ffc107; }
+        .badge-red { background: rgba(178,34,34,0.2); color: #ef5350; }
+        
+        /* TOC */
+        .toc {
+            background: rgba(0,0,0,0.15);
+            border-radius: 8px;
+            padding: 20px 25px;
+            margin: 20px 0;
+        }
+        
+        .toc h3 {
+            margin-top: 0;
+            border-left: none;
+            padding-left: 0;
+        }
+        
+        .toc ul {
+            list-style: none;
+            margin: 10px 0 0;
+            padding: 0;
+        }
+        
+        .toc li {
+            padding: 5px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+        
+        .toc a {
+            color: var(--steam-text);
+        }
+        
+        .toc a:hover {
+            color: var(--steam-blue);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8em;
+            }
+            .content {
+                padding: 20px;
+            }
+            .container {
+                padding: 20px 10px;
+            }
+        }
+        
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                color: black;
+            }
+            .content {
+                background: white;
+                box-shadow: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>🌊 《无光之海》Sunless Sea</h1>
+            <p class="subtitle">100% 全成就中文完全指南</p>
+            <div class="meta">
+                <span class="meta-item"><strong>版本:</strong> 3.0 全成就专版</span>
+                <span class="meta-item"><strong>成就数:</strong> 54 个</span>
+                <span class="meta-item"><strong>难度:</strong> 本体 30 + DLC 24</span>
+            </div>
+            <div class="difficulty-legend">
+                <div class="difficulty-item">
+                    <span class="diff-circle" style="background-color: var(--steam-green);"></span>
+                    <span>简单 / Easy</span>
+                </div>
+                <div class="difficulty-item">
+                    <span class="diff-circle" style="background-color: var(--steam-yellow);"></span>
+                    <span>中等 / Medium</span>
+                </div>
+                <div class="difficulty-item">
+                    <span class="diff-circle" style="background-color: var(--steam-red);"></span>
+                    <span>困难 / Hard</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="content">
+            <h1>《无光之海》(Sunless Sea) 100% 全成就中文完全指南</h1>
+<blockquote><strong>版本</strong>: 3.0 — 全成就专版（修订版）<br><strong>整理日期</strong>: 2026年8月<br><strong>资料来源</strong>: Epic Games Store 成就列表、Steam Hunters、GamePretty 成就指南、Steam Solo 中文攻略、Failbetter Games 官方 Wiki、其乐 Keylol 社区<br><strong>游戏版本</strong>: Sunless Sea: Zubmariner Edition（本体 30 个成就 + Zubmariner DLC 24 个成就 = 共 54 个成就）</blockquote>
+<hr>
+<h2>目录</h2>
+<li value="1"><a href="#一成就可以览与解锁路线图">成就总览与解锁路线图</a></li>
+<li value="2"><a href="#二本体成就30个详解">本体成就（30个）详解</a></li>
+<li value="3"><a href="#三zubmariner-dlc-成就24个详解">Zubmariner DLC 成就（24个）详解</a></li>
+<li value="4"><a href="#四从零开始的-100-成就路线图">从零开始的 100% 成就路线图</a></li>
+<li value="5"><a href="#五新手生存攻略">新手生存攻略</a></li>
+<li value="6"><a href="#六互斥成就与注意事项">互斥成就与注意事项</a></li>
+<hr>
+<h2>一、成就总览与解锁路线图</h2>
+<h3>1.1 成就分类速查</h3>
+<table>
+<thead><tr>
+<th>分类</th>
+<th>数量</th>
+<th>说明</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>本体基础成就</strong></td>
+<td>30</td>
+<td>基础游戏内容，无需 DLC</td>
+</tr>
+<tr>
+<td><strong>Zubmariner DLC</strong></td>
+<td>24</td>
+<td>需安装 Zubmariner 扩展包</td>
+</tr>
+<tr>
+<td><strong>总计</strong></td>
+<td><strong>54</strong></td>
+<td>100% 完成所需</td>
+</tr>
+</tbody></table>
+<h3>1.2 按类型分类</h3>
+<table>
+<thead><tr>
+<th>类型</th>
+<th>成就名关键词</th>
+<th>数量</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>时间/存活类</strong></td>
+<td>One Year / Five Years / Ten Years at Zee</td>
+<td>3</td>
+</tr>
+<tr>
+<td><strong>死亡/传承类</strong></td>
+<td>Sink Beneath / Legacy 相关</td>
+<td>8</td>
+</tr>
+<tr>
+<td><strong>探索发现类</strong></td>
+<td>各地点发现</td>
+<td>15+</td>
+</tr>
+<tr>
+<td><strong>状态/数值类</strong></td>
+<td>Terror / Favour / Antiquarian</td>
+<td>8</td>
+</tr>
+<tr>
+<td><strong>任务/剧情类</strong></td>
+<td>主线 Ambition 完成</td>
+<td>5</td>
+</tr>
+<tr>
+<td><strong>特殊挑战类</strong></td>
+<td>不存档/无出身/诅咒</td>
+<td>5</td>
+</tr>
+<tr>
+<td><strong>水下专属类</strong></td>
+<td>Zubmariner 水下内容</td>
+<td>12</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>二、本体成就（30个）详解</h2>
+<blockquote>以下按推荐解锁顺序排列，并标注难度和注意事项。</blockquote>
+<h3>🟢 极低难度（ unavoidable / 几乎必得）</h3>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 1. Open Your Ears（倾听）</h4>
+<li><strong>中文</strong>: 下载新故事</li>
+<li><strong>解锁条件</strong>: 从主菜单下载新故事内容</li>
+<li><strong>操作</strong>: 游戏主界面右下角有下载按钮，点击即可</li>
+<li><strong>难度</strong>: 🟢  trivial</li>
+<li><strong>备注</strong>: 开局第一件事就能完成</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 2. Sink Beneath the Waves（沉入波涛之下）</h4>
+<li><strong>中文</strong>: 首次死亡</li>
+<li><strong>解锁条件</strong>: 死亡一次</li>
+<li><strong>操作</strong>: 这是游戏的核心机制，你几乎一定会死</li>
+<li><strong>难度</strong>: 🟢  inevitable</li>
+<li><strong>备注</strong>: 死法多样：船体归零、恐惧100、饥饿、船员死光、某些任务事件等</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 3. Sink Beneath the Waves. Again.（再次沉入波涛）</h4>
+<li><strong>中文</strong>: 在同一传承中死亡 5 次</li>
+<li><strong>解锁条件</strong>: 同一血脉（lineage）内累计死亡 5 次</li>
+<li><strong>操作</strong>: 每次死亡后选择继承者继续游戏即可</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<li><strong>备注</strong>: 不需要刻意去做，正常游玩过程中自然达成</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 4. Never Stop Sinking…（永不停歇地沉没…）</h4>
+<li><strong>中文</strong>: 在同一传承中死亡 10 次</li>
+<li><strong>解锁条件</strong>: 同一血脉内累计死亡 10 次</li>
+<li><strong>操作</strong>: 继续送死即可</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<li><strong>备注</strong>: 可与上面的成就一起完成</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 5. Thou, All-Shaking Thunder（你这震撼一切的雷霆）</h4>
+<li><strong>中文</strong>: 让恐惧达到 90</li>
+<li><strong>解锁条件</strong>: Terror 达到 90</li>
+<li><strong>操作</strong>: 在海上关闭灯光（按 L），停在黑暗中等待恐惧上升</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<li><strong>备注</strong>: 正常游玩中也很容易达到，尤其是探索偏远区域时</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 6. Lose your Mind（失去理智）</h4>
+<li><strong>中文</strong>: 让恐惧达到 100</li>
+<li><strong>解锁条件</strong>: Terror 达到 100</li>
+<li><strong>操作</strong>: 同上，继续让恐惧上升</li>
+<li><strong>难度</strong>: 🟡  medium</li>
+<li><strong>备注</strong>: 达到 100 后会发生船员暴动事件，需要较高 Hearts 属性才能幸存。建议提前存档或确保 Hearts ≥ 80</li>
+<hr>
+<h3>🟡 低难度（需要一点操作）</h3>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 7. One Year at Zee（海上一年）</h4>
+<li><strong>中文</strong>: 在同一传承中连续在海上度过一年</li>
+<li><strong>解锁条件</strong>: 游戏内时间达到 1888年11月30日（游戏从 1887年11月30日 开始）</li>
+<li><strong>操作</strong>: 正常游玩即可，不需要刻意挂机</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<li><strong>备注</strong>: 每次船长死亡后，下一位船长会在一个月后接任，这个时间也会计入</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 8. Five Years at Zee（海上五年）</h4>
+<li><strong>中文</strong>: 在同一传承中连续在海上度过五年</li>
+<li><strong>解锁条件</strong>: 游戏内时间达到 1892年11月30日</li>
+<li><strong>操作</strong>: 正常游玩或故意送死刷时间</li>
+<li><strong>难度</strong>: 🟡  medium</li>
+<li><strong>备注</strong>: 如果急着完成，可以修改存档文件中的日期（见技巧部分）</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 9. Ten Years at Zee（海上十年）</h4>
+<li><strong>中文</strong>: 在同一传承中连续在海上度过十年</li>
+<li><strong>解锁条件</strong>: 游戏内时间达到 1897年11月30日</li>
+<li><strong>操作</strong>: 最省时的方法是修改存档</li>
+<li><strong>难度</strong>: 🟡  medium</li>
+<li><strong>技巧</strong>: 存档位置 <code>Users &gt; [用户名] &gt; AppData &gt; LocalLow &gt; Failbetter Games &gt; Sunless Sea</code>，用 WordPad 打开，搜索 <code>InGameDate</code>，修改为 1897年11月30日之后的日期</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 10. Come Closer（靠近些）</h4>
+<li><strong>中文</strong>: 邀请紫衣女士上船</li>
+<li><strong>解锁条件</strong>: 恐惧达到 75 后，触发随机事件 "An Old Friend"，接受 Lady in Lilac 上船</li>
+<li><strong>操作</strong>: 将 Terror 升到 75，在海上航行等待随机事件</li>
+<li><strong>难度</strong>: 🟡  medium</li>
+<li><strong>备注</strong>: 事件是随机的，可能需要一些时间。确保不要在此之前将 Terror 降到 75 以下</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 11. Sound Mind?（健全的心智？）</h4>
+<li><strong>中文</strong>: 创建一份铁一般的遗嘱</li>
+<li><strong>解锁条件</strong>: 购买房产，然后支付 100 Echoes 立遗嘱</li>
+<li><strong>操作</strong>: 在伦敦 Your Lodgings 购买房子（多种选择，最便宜约 200 Echoes），然后选择立遗嘱选项</li>
+<li><strong>难度</strong>: 🟡  medium</li>
+<li><strong>备注</strong>: 遗嘱可以让你在死亡时留下传家宝和房产给继承人</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 12. Sweet Sorrow（甜蜜的悲伤）</h4>
+<li><strong>中文</strong>: 在伦敦追求一位心上人</li>
+<li><strong>解锁条件</strong>: 在伦敦 Wolfstack Docks 参加 "Carouse" 活动（需要 Something Awaits You），随机触发 "Trouble, and romance" 事件，获得一位恋人。之后在海上航行时，会随机触发一个事件让你扔掉吊坠，选择不扔即可解锁</li>
+<li><strong>操作</strong>: 需要一些运气触发事件，建议在伦敦频繁停靠</li>
+<li><strong>难度</strong>: 🟡  medium</li>
+<li><strong>备注</strong>: 获得恋人后记得 TA 的名字，某些任务会用到</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 13. The Ascent of Man（人类的 ascent）</h4>
+<li><strong>中文</strong>: 前往地表</li>
+<li><strong>解锁条件</strong>: 通过 Cumean Canal 到达地表</li>
+<li><strong>操作</strong>: 从伦敦向西航行，找到 Cumean Canal（库迈运河），需要 22 Fuel 和 2 Supplies 才能通过</li>
+<li><strong>难度</strong>: 🟡  medium</li>
+<li><strong>备注</strong>: 地表可以降低大量 Terror，也是某些贸易路线的重要节点</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 14. HE SUN THE SUN THE SUN T（太阳太阳太阳）</h4>
+<li><strong>中文</strong>: 发现黎明机器</li>
+<li><strong>解锁条件</strong>: 找到 Dawn Machine（黎明机器）</li>
+<li><strong>操作</strong>: 前往地图西南角，在 The Dawn Machine 区域探索</li>
+<li><strong>难度</strong>: 🟡  medium</li>
+<li><strong>备注</strong>: 这是一个危险区域，做好准备再前往</li>
+<hr>
+<h3>🟠 中等难度（需要一定准备）</h3>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 15. Correspondent（记者）</h4>
+<li><strong>中文</strong>: 选择记者遗产</li>
+<li><strong>解锁条件</strong>: 船长死亡后，选择 Correspondent 遗产开始新游戏</li>
+<li><strong>操作</strong>: 先死一次，然后在遗产选择界面选 Correspondent</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<li><strong>备注</strong>: 遗产需要在上一任船长活着的时候通过某些方式解锁</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 16. Pupil（学徒）</h4>
+<li><strong>中文</strong>: 选择学徒遗产</li>
+<li><strong>解锁条件</strong>: 船长死亡后，选择 Pupil 遗产</li>
+<li><strong>操作</strong>: 同上</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 17. Salvager（打捞者）</h4>
+<li><strong>中文</strong>: 选择打捞者遗产</li>
+<li><strong>解锁条件</strong>: 船长死亡后，选择 Salvager 遗产</li>
+<li><strong>操作</strong>: 同上</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 18. Shipmate（船员）</h4>
+<li><strong>中文</strong>: 选择船员遗产</li>
+<li><strong>解锁条件</strong>: 船长死亡后，选择 Shipmate 遗产</li>
+<li><strong>操作</strong>: 同上</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 19. Rival（对手）</h4>
+<li><strong>中文</strong>: 选择对手遗产</li>
+<li><strong>解锁条件</strong>: 船长死亡后，选择 Rival 遗产</li>
+<li><strong>操作</strong>: 同上</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<li><strong>备注</strong>: 所有 5 个遗产成就都需要至少死亡 5 次来完成</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 20. Zee Fever（海之热）</h4>
+<li><strong>中文</strong>: 送孩子出海</li>
+<li><strong>解锁条件</strong>: 先有一位恋人，然后有孩子，最后将孩子送往海上</li>
+<li><strong>操作</strong>:</li>
+<li value="1">先完成 Sweet Sorrow 获得恋人</li>
+<li value="2">第二次与恋人见面（需要 Something Awaits You），触发 "An Unexpected Letter" 事件，此时如果有 Salt's Curse 会触发不同版本，需要重新尝试</li>
+<li value="3">回到伦敦，在 Your Lodgings 选择 "Time with your Family"（需要 Something Awaits You）</li>
+<li value="4">通过给孩子讲故事增加 "Memoirs: Zee Fever" 条件，需要达到 25</li>
+<li value="5">最佳讲故事物品："Memory of Distant Shores"、"Zee-ztory"、"Vision of the Surface"（各+5）</li>
+<li value="6">"Live Specimen"、"Outlandish Artefact"（各+7）</li>
+<li value="7">"Judgements' Egg"（+15）</li>
+<li value="8">达到 25 后，孩子会要求出海，同意即可</li>
+<li><strong>难度</strong>: 🟠  medium</li>
+<li><strong>备注</strong>: 这是一个较长的任务链，需要耐心积累</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 21. We're Gonna Need a Bigger Boat（我们需要一艘更大的船）</h4>
+<li><strong>中文</strong>: 购买末日级无畏舰</li>
+<li><strong>解锁条件</strong>: 购买 Eschatologue-class Dreadnought（末日级无畏舰）</li>
+<li><strong>操作</strong>: 在伦敦 Caminus Yards 购买，价格 30,000 Echoes</li>
+<li><strong>难度</strong>: 🟠  hard</li>
+<li><strong>备注</strong>: 游戏中最贵的船。需要大量赚钱。推荐后期贸易路线或完成多个任务积累财富</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 22. The Fall of the House（家族的覆灭）</h4>
+<li><strong>中文</strong>: 见证猎人小屋故事的结局</li>
+<li><strong>解锁条件</strong>: 完成 Hunter's Keep（猎人小屋）的故事线</li>
+<li><strong>操作</strong>: 多次访问 Hunter's Keep，与三姐妹对话推进剧情。由于随机性，需要的对话次数不固定</li>
+<li><strong>难度</strong>: 🟠  medium</li>
+<li><strong>备注</strong>: 这是一个有多个结局的故事线，成就只需要看到任意结局即可</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 23. Rules the Waves（统治波涛）</h4>
+<li><strong>中文</strong>: 海军部好感达到 10</li>
+<li><strong>解锁条件</strong>: Admiralty's Favour 达到 10</li>
+<li><strong>操作</strong>: 向伦敦 Admiralty 提交港口报告（Port Reports）提升好感。首次提交某个港口的报告会获得更多好感。也可以提交 "Strategic Information"、"Moves in the Great Game"、"Vital Intelligence"</li>
+<li><strong>难度</strong>: 🟠  medium</li>
+<li><strong>备注</strong>: 需要在将 supremacy 交给其他派系之前完成此成就</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 24. Old Unhappy Far-Off Things（古老而不幸的遥远事物）</h4>
+<li><strong>中文</strong>: 古物研究者等级达到 10</li>
+<li><strong>解锁条件</strong>: Antiquarian 达到 10</li>
+<li><strong>操作</strong>: 向 Alarming Scholar（惊恐学者）出售各种文物和奇珍。可出售物品包括：Zee-Story、Memory of Distant Shores、Strange Catch、Lamentable Relic、Ambiguous Eolith、Judgements' Egg、Unread Log、Outlandish Artefact、Captivating Treasure、Live Specimen 等</li>
+<li><strong>难度</strong>: 🟠  medium</li>
+<li><strong>备注</strong>: 与 Rules the Waves 类似，需要在给学者 7 个 "Searing Enigma" 之前完成，因为那会结束这条线</li>
+<hr>
+<h3>🔴 高难度 / 特殊挑战</h3>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 25. Salt's Curse（盐之诅咒）</h4>
+<li><strong>中文</strong>: 遭受盐之诅咒</li>
+<li><strong>解锁条件</strong>: 获得 Salt's Curse</li>
+<li><strong>操作</strong>: 最可靠的方法是去 Frostfound：</li>
+<li value="1">确保 Terror &lt; 20</li>
+<li value="2">选择 "Enter Frostfound"</li>
+<li value="3">到达 "Dark Room"</li>
+<li value="4">选择 "Fumble in the Darkness"，随机获得一种诅咒</li>
+<li value="5">如果不是 Salt's Curse，重复尝试</li>
+<li><strong>其他获取方式</strong>: 在 "Something Awaits You" 事件中不招募 "Raggedy Fellow"；海上随机事件成功射杀白蝙蝠；从 Codex 获取 "Strategic Information" 时；"The Man who Stole the Sun" 任务中不惩罚打开盒子的船员；掠夺 Nocturne</li>
+<li><strong>难度</strong>: 🟠  medium</li>
+<li><strong>备注</strong>: 三种诅咒成就建议一起在 Frostfound 完成</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 26. Stone's Curse（石之诅咒）</h4>
+<li><strong>中文</strong>: 遭受石之诅咒</li>
+<li><strong>解锁条件</strong>: 获得 Stone's Curse</li>
+<li><strong>操作</strong>: 只能通过 Frostfound 的 "Fumble in the Darkness" 获得（方法同上）</li>
+<li><strong>难度</strong>: 🟠  medium</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 27. Storm's Curse（风暴之诅咒）</h4>
+<li><strong>中文</strong>: 遭受风暴之诅咒</li>
+<li><strong>解锁条件</strong>: 获得 Storm's Curse</li>
+<li><strong>操作</strong>:</li>
+<li>Frostfound 方法（同上）</li>
+<li>或在 "Your Father's Bones" 任务线中，将 Mt. Nomad 的心脏交给 Fathomking（确定事件）</li>
+<li>或在 "The Last Tour" 任务线的 Chelonate 部分随机获得</li>
+<li><strong>难度</strong>: 🟠  medium</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#b22222;" title="red"></span> 28. A Past Wreathed in Shadows（阴影缠绕的过去）</h4>
+<li><strong>中文</strong>: 不选择任何出身背景完成游戏</li>
+<li><strong>解锁条件</strong>: 从不选择 Past（出身），完成一个 Ambition</li>
+<li><strong>操作</strong>:</li>
+<li value="1">开局选择 "A Past Wreathed in Shadows"</li>
+<li value="2">只能完成 "秘密" Ambition（隐藏的 Ambition）</li>
+<li value="3">可行的秘密 Ambition 只有 "The Uttermost East"（极东之地）和 "A Private Kingdom"（私人王国）</li>
+<li value="4">完成其中之一即可解锁</li>
+<li><strong>难度</strong>: 🔴  hard</li>
+<li><strong>备注</strong>: 这是最困难的成就之一，因为不能选择出身意味着初始属性很差。建议在有经验后再尝试，或者先通过其他周目解锁好装备和地图再来速通</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#b22222;" title="red"></span> 29. I am the Captain of my Soul（我是我灵魂的主人）</h4>
+<li><strong>中文</strong>: 不手动存档完成游戏</li>
+<li><strong>解锁条件</strong>: 完成一个 Ambition 且全程不使用手动存档</li>
+<li><strong>操作</strong>: 选择一个较简单的 Ambition（如 Wealth 或 Your Father's Bones），从开始到完成不手动保存</li>
+<li><strong>难度</strong>: 🔴  hard</li>
+<li><strong>技巧</strong>: 虽然游戏本身有自动存档，但手动保存是指主动按 Esc 选择 Save。你可以备份存档文件来防止意外，但成就要求游戏过程中不按保存按钮</li>
+<li><strong>备注</strong>: 可以与 A Past Wreathed in Shadows 在同一周目完成，但那将极其困难。建议分开做</li>
+<hr>
+<h4>30. （隐藏成就 - 需补充完整名称）</h4>
+<p>根据资料，本体成就共 30 个。从各种来源收集，可能还包括以下成就：</p>
+<li><strong>A Nation</strong>（一个国家）- 可能与 A Private Kingdom 相关</li>
+<li><strong>A New Heart</strong>（新的心脏）- 可能与任务线相关</li>
+<li><strong>A Captain of Adventure</strong>（冒险船长）- 可能为默认/隐藏</li>
+<blockquote><strong>注意</strong>: 由于部分成就中文资料缺失，以上列表基于英文社区资料整理。游戏内成就列表以 Steam/Epic 实际显示为准。建议游戏内打开成就面板核对完整列表。</blockquote>
+<hr>
+<h2>三、Zubmariner DLC 成就（24个）详解</h2>
+<blockquote>需要安装 Zubmariner DLC，并将船只改造为 Zubmarine（潜水艇）后才能完成大部分成就。</blockquote>
+<h3>🟢 入门成就</h3>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 31. Frightful, sheer, no-man-fathomed（可怕、陡峭、无人能测）</h4>
+<li><strong>中文</strong>: 潜入波涛之下</li>
+<li><strong>解锁条件</strong>: 将船只改造为 Zubmarine 后，首次潜水</li>
+<li><strong>操作</strong>:</li>
+<li value="1">前往 Port Carnelian（红玉髓港），找到 Fierce Philanthropist</li>
+<li value="2">完成相关任务或支付费用将船改造为 Zubmarine</li>
+<li value="3">离开港口后按 <strong>T 键</strong> 潜水</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<li><strong>备注</strong>: 一旦某任船长完成改造，后续船长可以免费改造</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 32. The Bell Tolls（钟声敲响）</h4>
+<li><strong>中文</strong>: 发现 Low Barnet（低巴尼特）</li>
+<li><strong>解锁条件</strong>: 在 Zubmarine 状态下发现 Low Barnet</li>
+<li><strong>操作</strong>: 潜水后在地图中探索，Low Barnet 位于特定区域（参考游戏内地图或社区地图）</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 33. Knife, Cup and Bone（刀、杯与骨）</h4>
+<li><strong>中文</strong>: 发现 Wrack（残骸）</li>
+<li><strong>解锁条件</strong>: 在 Zubmarine 状态下发现 Wrack</li>
+<li><strong>操作</strong>: 同上，水下探索</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 34. Under the zee（在 zee 之下）</h4>
+<li><strong>中文</strong>: 发现 Undercrow（暗鸦之下）</li>
+<li><strong>解锁条件</strong>: 在 Zubmarine 状态下发现 Undercrow</li>
+<li><strong>操作</strong>: 水下探索</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 35. The dragon in the zee（zee 中之龙）</h4>
+<li><strong>中文</strong>: 发现 Nook（ nook）</li>
+<li><strong>解锁条件</strong>: 在 Zubmarine 状态下发现 Nook</li>
+<li><strong>操作</strong>: 水下探索</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 36. The beauty of the deep（深渊之美）</h4>
+<li><strong>中文</strong>: 发现 Dahut（达胡特）</li>
+<li><strong>解锁条件</strong>: 在 Zubmarine 状态下发现 Dahut</li>
+<li><strong>操作</strong>: 水下探索</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 37. Those are pearls that were his eyes（那些曾是他眼睛的珍珠）</h4>
+<li><strong>中文</strong>: 发现 Anthe（安特）</li>
+<li><strong>解锁条件</strong>: 在 Zubmarine 状态下发现 Anthe</li>
+<li><strong>操作</strong>: 水下探索</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 38. His bones in whispers（他的骨头在低语）</h4>
+<li><strong>中文</strong>: 发现 Scrimshander（斯克里姆尚德）</li>
+<li><strong>解锁条件</strong>: 在 Zubmarine 状态下发现 Scrimshander</li>
+<li><strong>操作</strong>: 水下探索</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 39. No regrets（无怨无悔）</h4>
+<li><strong>中文</strong>: 发现 Aigul（艾古尔）</li>
+<li><strong>解锁条件</strong>: 在 Zubmarine 状态下发现 Aigul</li>
+<li><strong>操作</strong>: 水下探索</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 40. Rosewater sailor（玫瑰水手）</h4>
+<li><strong>中文</strong>: 发现 Rosegate（玫瑰门）</li>
+<li><strong>解锁条件</strong>: 在 Zubmarine 状态下发现 Rosegate</li>
+<li><strong>操作</strong>: 水下探索</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 41. Thanks for all the fish（感谢所有的鱼）</h4>
+<li><strong>中文</strong>: 发现 The Gant Pole（甘特极）</li>
+<li><strong>解锁条件</strong>: 在 Zubmarine 状态下发现 The Gant Pole</li>
+<li><strong>操作</strong>: 水下探索</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 42. Leviathan（利维坦）</h4>
+<li><strong>中文</strong>: 发现 Hideaway（藏身处）</li>
+<li><strong>解锁条件</strong>: 在 Zubmarine 状态下发现 Hideaway</li>
+<li><strong>操作</strong>: 水下探索</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<li><strong>备注</strong>: 所有发现类成就都可以参考社区地图，在对应标记区域内潜水寻找</li>
+<hr>
+<h3>🟡 中等难度</h3>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 43. Roaring Rise（咆哮升起）</h4>
+<li><strong>中文</strong>: 找到 "Eye"（眼）</li>
+<li><strong>解锁条件</strong>: 发现名为 "Eye" 的特殊地点</li>
+<li><strong>操作</strong>:</li>
+<li>"Eye" 在新游戏开始时随机生成，通常在地图的绿色区域（中部偏西）</li>
+<li>该格子在地图上是空的，只有一块小石头作为标记</li>
+<li>靠近后会自动发现</li>
+<li><strong>难度</strong>: 🟡  medium</li>
+<li><strong>备注</strong>: 由于随机生成，可能需要多开几个新档寻找。参考社区分享的地图标记</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 44. A buoyant escape（浮力逃脱）</h4>
+<li><strong>中文</strong>: 在水下战斗中浮出水面逃脱</li>
+<li><strong>解锁条件</strong>: 在水下战斗中按 T 键上浮到水面</li>
+<li><strong>操作</strong>: 遭遇水下敌人后，战斗中按 T 键上浮</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<li><strong>备注</strong>: 上浮过程中仍然会受到伤害，注意血量</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 45. A current under zee（zee 下的洋流）</h4>
+<li><strong>中文</strong>: 利用水下洋流航行</li>
+<li><strong>解锁条件</strong>: 进入水下洋流（Underwater Current）</li>
+<li><strong>操作</strong>: 潜水后寻找洋流区域（随机生成），进入后会获得速度加成或减益</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<li><strong>备注</strong>: 洋流在地图上以特殊视觉效果显示</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 46. Depth charge（深水炸弹）</h4>
+<li><strong>中文</strong>: 使用绿洲补充氧气</li>
+<li><strong>解锁条件</strong>: 在 Oasis（绿洲）补充氧气</li>
+<li><strong>操作</strong>: 潜水后寻找 Oasis（随机生成），靠近即可补充氧气</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<li><strong>备注</strong>: Oasis 有特殊的视觉效果，看起来像一个发光的水下气泡</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 47. Death By Water（溺亡）</h4>
+<li><strong>中文</strong>: 因窒息而死</li>
+<li><strong>解锁条件</strong>: 氧气耗尽死亡</li>
+<li><strong>操作</strong>: 潜水后等待氧气降到 0</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<li><strong>备注</strong>: 氧气在潜水时持续下降，可以在任何安全区域挂机等待</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 48. Consider Phlebas（想想弗勒巴斯）</h4>
+<li><strong>中文</strong>: 被水下生物杀死</li>
+<li><strong>解锁条件</strong>: 在水下战斗中被生物击杀</li>
+<li><strong>操作</strong>: 遭遇水下敌人后，不反抗等待被击杀</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<li><strong>备注</strong>: Constant Companion 不计入此成就</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 49. What lies beneath（表象之下）</h4>
+<li><strong>中文</strong>: 面对永恒伴侣</li>
+<li><strong>解锁条件</strong>: 遇到 Constant Companion（永恒伴侣）</li>
+<li><strong>操作</strong>:</li>
+<li value="1">将 Terror 提升到 75 以上</li>
+<li value="2">潜水后随机遭遇 Constant Companion</li>
+<li value="3">它会主动出现在你面前</li>
+<li><strong>难度</strong>: 🟡  medium</li>
+<li><strong>备注</strong>: Constant Companion 是一个强大的水下 Boss，出现后会一直追着你</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#5c7e10;" title="green"></span> 50. Ofermod（过度骄傲）</h4>
+<li><strong>中文</strong>: 被永恒伴侣杀死</li>
+<li><strong>解锁条件</strong>: 被 Constant Companion 击杀</li>
+<li><strong>操作</strong>: 遇到 Constant Companion 后，不逃跑也不反抗，等待被击杀</li>
+<li><strong>难度</strong>: 🟢  easy</li>
+<li><strong>备注</strong>: 它每次近战造成 40 点伤害，死得很快</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 51. Under pressure（承受压力）</h4>
+<li><strong>中文</strong>: 未被未爆核弹炸死</li>
+<li><strong>解锁条件</strong>: 遭遇 "Unexploded Unclear Bomb"（未爆的模糊炸弹）并成功通过运气检定</li>
+<li><strong>操作</strong>:</li>
+<li value="1">在地图南部寻找巨大的未爆核弹（随机生成，据说伦敦南部有刷新点）</li>
+<li value="2">靠近后触发事件</li>
+<li value="3">进行 50-50 的运气检定</li>
+<li value="4">成功后解锁成就</li>
+<li><strong>难度</strong>: 🟡  medium</li>
+<li><strong>备注</strong>: 这个炸弹看起来像一个巨大的金属圆柱体，有明显的视觉效果</li>
+<hr>
+<h3>🔴 高难度</h3>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#b22222;" title="red"></span> 52. A Drownie devotee（溺亡者信徒）</h4>
+<li><strong>中文</strong>: 收集齐三首溺亡者之歌</li>
+<li><strong>解锁条件</strong>: 收集 Drownie Love-song、Drownie Counterpoint、Drownie Hymn</li>
+<li><strong>操作</strong>:</li>
+<li value="1">前往 Dahut（需要 "Recent News" 才能进入）</li>
+<li value="2">在 Dahut 参加三种不同的仪式获取歌曲：</li>
+<li><strong>Love-song</strong>: 参加 Spring Rites（出席 rating 4-9，Clarity ≤ 3），选择 "Linger" 并成功</li>
+<li><strong>Counterpoint</strong>: 参加 Midsummer Festival（出席 rating 4-9，Enthralment ≥ 15），选择 "Linger" 并通过 Clarity 检定</li>
+<li><strong>Hymn</strong>: 参加 Liturgy of Souls（出席 rating 4-9，Enthralment ≤ 3），选择 "Keep awake! Awake!" 并通过 Clarity 检定</li>
+<li value="3">平衡 "Clarity" 和 "Enthralment"：使用 "Unread Log"（随机+5 Clarity/-5 Enthralment 或反之）"White Mollyflower"（将 Enthralment 归零）</li>
+<li value="4">每次离开 Dahut 后这两个值会重置</li>
+<li><strong>难度</strong>: 🔴  hard</li>
+<li><strong>备注</strong>: 检定有一定难度，建议提升相关属性后再来。三种仪式需要在不同状态下参加</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#d2b512;" title="yellow"></span> 53. A zee-change（海的转变）</h4>
+<li><strong>中文</strong>: 接受深渊的力量</li>
+<li><strong>解锁条件</strong>: 潜入深渊（Abyss）并完成仪式</li>
+<li><strong>操作</strong>: 在水下找到深渊入口，潜入后选择接受力量</li>
+<li><strong>难度</strong>: 🟠  medium</li>
+<li><strong>备注</strong>: 深渊是危险的区域，做好准备再进入</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#b22222;" title="red"></span> 54. The Lady's Parlour（女士的客厅）</h4>
+<li><strong>中文</strong>: 通过深渊仪式遇到黑女士</li>
+<li><strong>解锁条件</strong>: 按正确顺序潜入 4 个深渊并完成仪式，最终遇到 Lady Black</li>
+<li><strong>操作</strong>:</li>
+<li value="1">需要潜入多个深渊（非第一次，第二次开始才是正确顺序）</li>
+<li value="2">正确顺序为：</li>
+<li>Abyss of Scriptures（经文深渊）</li>
+<li>Abyss of Pyres（火堆深渊）</li>
+<li>Abyss of Pomegranates（石榴深渊）</li>
+<li>Abyss of Graves（坟墓深渊）</li>
+<li value="3">最后接受 Lady Black 的提议</li>
+<li value="4"><strong>注意</strong>: 接受她的提议会导致死亡</li>
+<li><strong>难度</strong>: 🔴  hard</li>
+<li><strong>备注</strong>: 深渊名称和位置是随机的，需要通过探索找到。这是一个牺牲性成就</li>
+<hr>
+<h4 class="achievement"><span class="diff-circle" style="background-color:#b22222;" title="red"></span> 55. Romans 6:9（罗马书 6:9）</h4>
+<li><strong>中文</strong>: 完成 Zubmariner 的 Ambition</li>
+<li><strong>解锁条件</strong>: 选择并完成 Immortality（不朽）Ambition</li>
+<li><strong>操作</strong>:</li>
+<li value="1">在 Zubmariner DLC 中选择 Immortality 作为 Ambition</li>
+<li value="2">追踪 Seven Against Nidah 的线索</li>
+<li value="3">前往 Nidah（Presbyterate 中心）</li>
+<li value="4">最终有三种选择：</li>
+<li>与 Seven 一同进入 Mountain-of-Light</li>
+<li>背叛 Seven，独自夺取不朽</li>
+<li>站在 Presbyterate 一方，摧毁 Seven 并获得王国</li>
+<li value="5">任意一种完成即可解锁</li>
+<li><strong>难度</strong>: 🔴  hard</li>
+<li><strong>备注</strong>: 这是 Zubmariner 的主线任务，非常长且复杂。建议查看专门攻略</li>
+<hr>
+<blockquote><strong>DLC 成就总计</strong>: 24 个（编号 31-54）</blockquote>
+<p>&gt;</p>
+<blockquote><strong>注意</strong>: 部分 DLC 成就的编号在本文中顺延，实际游戏内显示顺序可能不同。</blockquote>
+<hr>
+<h2>四、从零开始的 100% 成就路线图</h2>
+<h3>4.1 总体策略</h3>
+<p>Sunless Sea 的成就设计有以下几个特点：</p>
+<li><strong>多周目/传承机制</strong>: 很多成就需要在不同周目完成</li>
+<li><strong>互斥成就</strong>: 某些选择会锁死其他路线</li>
+<li><strong>时间成就</strong>: 需要游戏内时间积累</li>
+<li><strong>死亡成就</strong>: 需要主动送死</li>
+<li><strong>无出身/不存档挑战</strong>: 最难的两个成就</li>
+<h3>4.2 推荐路线规划</h3>
+<h4>📌 第一周目：熟悉游戏 + 基础成就</h4>
+<p><strong>目标</strong>: 完成 10-15 个简单成就，熟悉地图和机制</p>
+<p><strong>开局选择</strong>:</p>
+<li>出身: 老兵（+Iron）或 自然哲学家（+Mirrors）</li>
+<li>Ambition: Wealth（财富，最容易完成）或 Your Father's Bones（父亲遗骨，有剧情）</li>
+<p><strong>本局完成成就</strong>:</p>
+<li value="1">✅ <strong>Open Your Ears</strong> — 开局下载新故事</li>
+<li value="2">✅ <strong>Sink Beneath the Waves</strong> — 肯定会死，无所谓</li>
+<li value="3">✅ <strong>Thou, All-Shaking Thunder</strong> — 让恐惧升到 90</li>
+<li value="4">✅ <strong>Lose your Mind</strong> — 让恐惧升到 100（然后读档或接受死亡）</li>
+<li value="5">✅ <strong>One Year at Zee</strong> — 正常游玩一年</li>
+<li value="6">✅ <strong>The Ascent of Man</strong> — 去地表看看</li>
+<li value="7">✅ <strong>HE SUN THE SUN THE SUN T</strong> — 去西南角找黎明机器</li>
+<li value="8">✅ <strong>Come Closer</strong> — 恐惧 75 遇到紫衣女士</li>
+<li value="9">✅ <strong>Sound Mind?</strong> — 买房产立遗嘱</li>
+<li value="10">✅ <strong>Sweet Sorrow</strong> — 找个恋人</li>
+<li value="11">✅ <strong>A Past Wreathed in Shadows</strong> / <strong>I am the Captain of my Soul</strong> — 如果技术好可以尝试，但建议放到后面</li>
+<p><strong>遗产选择</strong>: 完成 Wealth Ambition，退休</p>
+<hr>
+<h4>📌 第二周目：积累死亡 + 时间成就</h4>
+<p><strong>目标</strong>: 刷死亡次数、时间成就、遗产成就</p>
+<p><strong>开局选择</strong>:</p>
+<li>选择上一局解锁的遗产</li>
+<li>Ambition: 随便选一个快的</li>
+<p><strong>本局完成成就</strong>:</p>
+<li value="1">✅ <strong>Sink Beneath the Waves. Again.</strong> — 同一传承死 5 次</li>
+<li value="2">✅ <strong>Never Stop Sinking…</strong> — 同一传承死 10 次</li>
+<li value="3">✅ <strong>Five Years at Zee</strong> — 时间到达 5 年</li>
+<li value="4">✅ <strong>Ten Years at Zee</strong> — 时间到达 10 年（可修改存档加速）</li>
+<li value="5">✅ <strong>Correspondent / Pupil / Salvager / Shipmate / Rival</strong> — 每次死换不同遗产</li>
+<li value="6">✅ <strong>Salt's Curse / Stone's Curse / Storm's Curse</strong> — 去 Frostfound 刷诅咒</li>
+<p><strong>技巧</strong>:</p>
+<li>故意送死来刷死亡成就</li>
+<li>每次死亡后换新遗产</li>
+<li>修改存档文件可以快速完成时间成就</li>
+<hr>
+<h4>📌 第三周目：Zubmariner DLC + 水下探索</h4>
+<p><strong>目标</strong>: 完成大部分水下成就</p>
+<p><strong>前提</strong>: 购买并安装 Zubmariner DLC，有一定资金储备</p>
+<p><strong>本局完成成就</strong>:</p>
+<li value="1">✅ <strong>Frightful, sheer, no-man-fathomed</strong> — 改造 Zubmarine 并潜水</li>
+<li value="2">✅ <strong>The Bell Tolls / Knife, Cup and Bone / Under the zee / The dragon in the zee / The beauty of the deep</strong> — 发现所有水下城市</li>
+<li value="3">✅ <strong>Those are pearls... / His bones in whispers / No regrets / Rosewater sailor / Thanks for all the fish / Leviathan</strong> — 继续发现水下城市</li>
+<li value="4">✅ <strong>A buoyant escape</strong> — 战斗中上浮</li>
+<li value="5">✅ <strong>A current under zee</strong> — 利用洋流</li>
+<li value="6">✅ <strong>Depth charge</strong> — 使用绿洲</li>
+<li value="7">✅ <strong>Death By Water</strong> — 氧气耗尽死亡</li>
+<li value="8">✅ <strong>Consider Phlebas</strong> — 被水下生物杀死</li>
+<li value="9">✅ <strong>What lies beneath / Ofermod</strong> — 遇到并被 Constant Companion 杀死</li>
+<li value="10">✅ <strong>Under pressure</strong> — 遭遇未爆核弹</li>
+<hr>
+<h4>📌 第四周目：困难成就 + 全收集</h4>
+<p><strong>目标</strong>: 完成剩余困难成就</p>
+<p><strong>本局完成成就</strong>:</p>
+<li value="1">✅ <strong>Zee Fever</strong> — 送孩子出海（长任务链）</li>
+<li value="2">✅ <strong>We're Gonna Need a Bigger Boat</strong> — 攒钱买末日级战舰（30,000E）</li>
+<li value="3">✅ <strong>The Fall of the House</strong> — 完成猎人小屋故事</li>
+<li value="4">✅ <strong>Rules the Waves</strong> — 海军部好感 10</li>
+<li value="5">✅ <strong>Old Unhappy Far-Off Things</strong> — 古物研究者 10</li>
+<li value="6">✅ <strong>A Drownie devotee</strong> — 收集三首溺亡者之歌</li>
+<li value="7">✅ <strong>A zee-change</strong> — 接受深渊力量</li>
+<li value="8">✅ <strong>The Lady's Parlour</strong> — 遇到黑女士</li>
+<li value="9">✅ <strong>Roaring Rise</strong> — 找到 Eye（可能需要多开新档）</li>
+<hr>
+<h4>📌 第五周目：终极挑战</h4>
+<p><strong>目标</strong>: 完成最难的两个成就</p>
+<p><strong>方案 A</strong>: <strong>A Past Wreathed in Shadows</strong> + <strong>I am the Captain of my Soul</strong></p>
+<li>不选出身（A Past Wreathed in Shadows）</li>
+<li>不手动存档（I am the Captain of my Soul）</li>
+<li>选择简单 Ambition（Wealth 或 A Private Kingdom）</li>
+<li>这是最困难的挑战，建议在所有其他成就完成后进行</li>
+<p><strong>或者分开做</strong>:</p>
+<li>一局做 A Past Wreathed in Shadows（可以存档）</li>
+<li>另一局做 I am the Captain of my Soul（可以选出身）</li>
+<hr>
+<h4>📌 最终周目：Romans 6:9</h4>
+<p><strong>目标</strong>: 完成 Zubmariner 主线 Ambition</p>
+<li>选择 Immortality Ambition</li>
+<li>完成 Seven Against Nidah 的漫长任务线</li>
+<li>这是 DLC 的核心内容，也是最后一个成就</li>
+<hr>
+<h3>4.3 路线图总结</h3>
+<table>
+<thead><tr>
+<th>周目</th>
+<th>目标</th>
+<th>预计完成成就数</th>
+<th>难度</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>第一周目</td>
+<td>熟悉 + 基础</td>
+<td>10-15</td>
+<td>🟡</td>
+</tr>
+<tr>
+<td>第二周目</td>
+<td>刷死亡/时间</td>
+<td>8-10</td>
+<td>🟢</td>
+</tr>
+<tr>
+<td>第三周目</td>
+<td>Zubmariner 探索</td>
+<td>15-18</td>
+<td>🟡</td>
+</tr>
+<tr>
+<td>第四周目</td>
+<td>困难成就</td>
+<td>6-8</td>
+<td>🔴</td>
+</tr>
+<tr>
+<td>第五周目</td>
+<td>终极挑战</td>
+<td>2</td>
+<td>🔴🔴</td>
+</tr>
+<tr>
+<td>最终周目</td>
+<td>Immortality</td>
+<td>1</td>
+<td>🔴🔴</td>
+</tr>
+</tbody></table>
+<p><strong>总计</strong>: 约 5-6 个周目可以完成全部 54 个成就。</p>
+<hr>
+<h2>五、新手生存攻略</h2>
+<h3>5.1 开局选择建议</h3>
+<table>
+<thead><tr>
+<th>出身</th>
+<th>推荐度</th>
+<th>理由</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>老兵 (+Iron)</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>战斗强，前期生存率高</td>
+</tr>
+<tr>
+<td>自然哲学家 (+Mirrors)</td>
+<td>⭐⭐⭐⭐</td>
+<td>视野大，利于探索</td>
+</tr>
+<tr>
+<td>街头顽童 (+Veils)</td>
+<td>⭐⭐⭐</td>
+<td>隐蔽高，适合规避战斗</td>
+</tr>
+<tr>
+<td>诗人 (+Pages)</td>
+<td>⭐⭐⭐</td>
+<td>经验获取快</td>
+</tr>
+<tr>
+<td>牧师 (+Hearts)</td>
+<td>⭐⭐⭐</td>
+<td>抗恐惧强</td>
+</tr>
+</tbody></table>
+<p><strong>Ambition 推荐</strong>:</p>
+<li><strong>新手</strong>: Wealth（财富）— 目标明确，可以随便玩</li>
+<li><strong>有基础</strong>: Your Father's Bones（父亲遗骨）— 有剧情引导，探索全图</li>
+<h3>5.2 前期赚钱路线</h3>
+<li value="1"><strong>接坟民去 Venderbight</strong>: 伦敦接人，北方送货，稳定收入</li>
+<li value="2"><strong>港口报告</strong>: 探索新港口，提交 Admiralty，安全收入</li>
+<li value="3"><strong>Salt Lions  Sphinxstone</strong>: 投资 200E 开启，运回伦敦高利润</li>
+<li value="4"><strong>红树学院乘客</strong>: 从 Mangrove College 接乘客送往各地</li>
+<li value="5"><strong>蘑菇酒贸易</strong>: 伦敦买入 → Port Carnelian 卖出</li>
+<h3>5.3 核心生存法则</h3>
+<li value="1"><strong>永远带够燃料和补给</strong>: 出航前确保能往返</li>
+<li value="2"><strong>灯光管理</strong>:</li>
+<li>开灯: Terror 上升慢，但容易被发现</li>
+<li>关灯: 隐蔽高，但 Terror 上升快</li>
+<li value="3"><strong>看到大怪就跑</strong>: 血量 &gt;30 的怪物，前期不要碰</li>
+<li value="4"><strong>及时修船</strong>: 船体低于 50% 就回伦敦修理</li>
+<li value="5"><strong>保存游戏</strong>: 进行危险任务前手动存档（除非挑战不存档成就）</li>
+<h3>5.4 属性提升优先级</h3>
+<table>
+<thead><tr>
+<th>优先级</th>
+<th>属性</th>
+<th>理由</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Iron</td>
+<td>战斗 = 赚钱 + 生存</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Veils</td>
+<td>规避战斗 = 省钱</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Hearts</td>
+<td>抗恐惧 = 少死</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Mirrors</td>
+<td>发现 = 探索收益</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Pages</td>
+<td>后期再升</td>
+</tr>
+</tbody></table>
+<h3>5.5 重要提示</h3>
+<li><strong>手动存档</strong>: 按 Esc → Save（除挑战不存档成就外）</li>
+<li><strong>备份存档</strong>: 存档位置 <code>C:\Users\[用户名]\AppData\LocalLow\Failbetter Games\Sunless Sea</code></li>
+<li><strong>修改存档</strong>: 可用 WordPad 编辑，搜索 <code>InGameDate</code> 改日期刷时间成就</li>
+<li><strong>查看地图</strong>: 按 M 键打开航海图</li>
+<li><strong>使用 Zee-bat</strong>: 按 Z 键发射侦察蝙蝠发现附近地点</li>
+<hr>
+<h2>六、互斥成就与注意事项</h2>
+<h3>6.1 互斥成就</h3>
+<p>以下成就在同一周目中<strong>无法同时完成</strong>，需要多周目：</p>
+<table>
+<thead><tr>
+<th>互斥组</th>
+<th>说明</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>不同 Legacy</strong></td>
+<td>每次死亡只能选一个遗产，需要死 5 次才能集齐</td>
+</tr>
+<tr>
+<td><strong>不同 Curse</strong></td>
+<td>可以同时拥有多个诅咒，但获取方式不同</td>
+</tr>
+<tr>
+<td><strong>Ambition 完成</strong></td>
+<td>完成一个 Ambition 游戏结束，需要多周目完成不同 Ambition</td>
+</tr>
+<tr>
+<td><strong>A Past Wreathed in Shadows</strong></td>
+<td>不选出身 → 只能完成秘密 Ambition</td>
+</tr>
+</tbody></table>
+<h3>6.2 易错过成就</h3>
+<table>
+<thead><tr>
+<th>成就</th>
+<th>易错过原因</th>
+<th>预防方法</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>Old Unhappy Far-Off Things</strong></td>
+<td>给学者 7 个 Searing Enigma 会结束该线</td>
+<td>先刷到 10 再交 Enigma</td>
+</tr>
+<tr>
+<td><strong>Rules the Waves</strong></td>
+<td>给派系 supremacy 会结束 Admiralty 线</td>
+<td>先刷到 10 再选派系</td>
+</tr>
+<tr>
+<td><strong>Sweet Sorrow</strong></td>
+<td>事件随机，可能错过</td>
+<td>在 London 多停留</td>
+</tr>
+<tr>
+<td><strong>Zee Fever</strong></td>
+<td>任务链长，需要特定物品</td>
+<td>提前收集讲故事道具</td>
+</tr>
+</tbody></table>
+<h3>6.3 难度评级汇总</h3>
+<table>
+<thead><tr>
+<th>难度</th>
+<th>成就数量</th>
+<th>代表成就</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>🟢 简单</td>
+<td>20+</td>
+<td>Open Your Ears, Sink Beneath, 各种发现类</td>
+</tr>
+<tr>
+<td>🟡 中等</td>
+<td>15+</td>
+<td>Five/Ten Years, Zee Fever, 诅咒</td>
+</tr>
+<tr>
+<td>🔴 困难</td>
+<td>10+</td>
+<td>Bigger Boat, A Drownie devotee, Romans 6:9</td>
+</tr>
+<tr>
+<td>🔴🔴 极难</td>
+<td>2</td>
+<td>A Past Wreathed in Shadows, I am the Captain of my Soul</td>
+</tr>
+</tbody></table>
+<hr>
+<h2>附录：存档修改指南（可选）</h2>
+<h3>修改时间成就</h3>
+<p>存档位置:</p>
+<p><code>`</code></p>
+<p>Windows: C:\Users\[用户名]\AppData\LocalLow\Failbetter Games\Sunless Sea</p>
+<p><code>`</code></p>
+<li value="1">用 WordPad 打开存档文件</li>
+<li value="2">Ctrl+F 搜索 <code>InGameDate</code></li>
+<li value="3">修改日期为 1897-12-01 或更晚</li>
+<li value="4">保存，加载游戏即可获得时间成就</li>
+<h3>修改前务必备份存档！</h3>
+<hr>
+<blockquote><strong>本指南完结</strong></blockquote>
+<p>&gt;</p>
+<blockquote>如有错误或遗漏，欢迎参考：<br>- 官方 Wiki: https://sunlesssea.miraheze.org/wiki/Main_Page<br>- Steam 社区指南<br>- 其乐 Keylol: https://keylol.com/t168244-1-1</blockquote>
+<p>&gt;</p>
+<blockquote><strong>祝各位船长在 Unterzee 的航行顺利——愿盐神、石神与风暴之神保佑你们。</strong> 🌊⚓</blockquote>
+        </div>
+    </div>
+    
+    <footer style="text-align: center; padding: 40px 20px; color: var(--steam-text-dim); font-size: 0.9em;">
+        <p>祝各位船长在 Unterzee 的航行顺利——愿盐神、石神与风暴之神保佑你们。⚓</p>
+        <p style="margin-top: 10px;">数据来源: Epic Games Store | Steam Hunters | GamePretty | Failbetter Games Wiki | 其乐 Keylol</p>
+    </footer>
+</body>
+</html>
