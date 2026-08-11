@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sunless Sea：投资武器研究，撕裂尼达的城墙</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #171d25;
+      --deep: #0e141b;
+      --panel: #1b2838;
+      --panel2: #21364a;
+      --line: #355269;
+      --text: #d6d7d8;
+      --muted: #8f98a0;
+      --blue: #66c0f4;
+      --blue2: #1a9fff;
+      --green: #a4d007;
+      --gold: #d6b45c;
+      --red: #e78383;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scrollbar-color: #4b6578 var(--deep); }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.7 "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+    }
+
+    a { color: var(--blue); }
+    a:hover { color: #fff; }
+
+    .hero {
+      border-bottom: 1px solid var(--line);
+      background: var(--deep);
+    }
+
+    .hero-inner,
+    .layout {
+      width: min(1160px, calc(100% - 40px));
+      margin: auto;
+    }
+
+    .hero-inner { padding: 52px 0 44px; }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      color: #fff;
+      font-size: clamp(32px, 5vw, 54px);
+      font-weight: 300;
+      line-height: 1.12;
+    }
+
+    .subtitle {
+      max-width: 800px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      gap: 34px;
+      padding: 34px 0 70px;
+    }
+
+    nav {
+      position: sticky;
+      top: 20px;
+      align-self: start;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    nav strong {
+      display: block;
+      margin-bottom: 10px;
+      color: #fff;
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      display: block;
+      padding: 6px 0;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    nav a:hover { color: var(--blue); }
+    main { min-width: 0; }
+
+    section {
+      margin-bottom: 44px;
+      scroll-margin-top: 22px;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      color: #fff;
+      font-size: 26px;
+      font-weight: 400;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    p { margin: 8px 0 14px; }
+    ul, ol { margin: 8px 0 14px; padding-left: 24px; }
+    li + li { margin-top: 5px; }
+
+    .callout {
+      margin-bottom: 20px;
+      padding: 18px 20px;
+      border-left: 4px solid var(--blue2);
+      background: var(--panel2);
+    }
+
+    .callout strong { color: #fff; }
+    .warning { border-left-color: var(--gold); }
+
+    .materials {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .material {
+      padding: 17px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .material .name {
+      color: #fff;
+      font-size: 17px;
+    }
+
+    .material .count {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .material .short { color: var(--red); }
+    .material .ready { color: var(--green); }
+
+    .route {
+      margin-bottom: 17px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .route-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .step {
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .1em;
+    }
+
+    .route h3 { margin: 0; }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 14px;
+    }
+
+    .tag {
+      padding: 3px 9px;
+      border: 1px solid var(--line);
+      color: #c7d5e0;
+      background: var(--deep);
+      font-size: 13px;
+    }
+
+    .save-note {
+      padding: 12px 14px;
+      border: 1px solid #526b33;
+      color: #cfe4a5;
+      background: #24321e;
+    }
+
+    .formula {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      margin: 16px 0;
+      padding: 16px;
+      border: 1px solid var(--line);
+      background: var(--deep);
+      color: #fff;
+      font-size: 17px;
+    }
+
+    .formula span {
+      padding: 4px 8px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .formula b { color: var(--blue); }
+
+    .checklist { display: grid; gap: 9px; }
+
+    .check {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 13px 15px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      cursor: pointer;
+    }
+
+    .check:hover { border-color: var(--blue); }
+
+    .check input {
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+      accent-color: var(--green);
+    }
+
+    .check span { flex: 1; }
+
+    .check input:checked + span {
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    .small { color: var(--muted); font-size: 14px; }
+
+    footer {
+      padding: 28px 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      background: var(--deep);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 850px) {
+      .layout { grid-template-columns: 1fr; }
+      nav { position: static; }
+      .materials { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      :root { color-scheme: light; }
+      body, .hero, nav, .material, .route, .check, .callout, .formula {
+        background: #fff;
+        color: #222;
+      }
+      h1, h2, .material .name, .callout strong, .formula { color: #111; }
+      h3, a, .eyebrow, .step { color: #176a99; }
+      nav { display: none; }
+      .layout { display: block; width: 100%; padding: 24px; }
+      .route, .material, .check { break-inside: avoid; border-color: #999; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Sunless Sea · Engineering the Downfall of Nidah</p>
+      <h1>投资武器研究，撕裂尼达的城墙</h1>
+      <p class="subtitle">“关键情报”不是一句任务提示，而是一件可携带的情报物品。本页根据本地事件数据和当前存档，给出最短获取路线。</p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav aria-label="目录">
+      <strong>行动目录</strong>
+      <a href="#answer">关键情报是什么</a>
+      <a href="#save">当前缺口</a>
+      <a href="#obtain">获取关键情报</a>
+      <a href="#torpedoes">补齐鱼雷</a>
+      <a href="#finish">执行武器研究</a>
+      <a href="#checklist">最短清单</a>
+      <a href="#sources">资料来源</a>
+    </nav>
+
+    <main>
+      <section id="answer">
+        <h2>“关键情报”是什么？</h2>
+        <div class="callout">
+          <strong>它的英文名是 Vital Intelligence，内部 Quality ID 为 109774。</strong>
+          这是“Curiosity／奇珍”分类下的一件实际物品，不是普通的任务状态，也不是某一条特定剧情情报。
+        </div>
+        <p>最稳定的制作方式是收集两份“战略情报／Strategic Information”，然后在物品栏中使用战略情报，将线索整理成一份关键情报。</p>
+      </section>
+
+      <section id="save">
+        <h2>你的当前存档缺口</h2>
+        <div class="materials">
+          <div class="material">
+            <div class="name">鱼雷／Torpedo Components</div>
+            <div class="count short">当前 5 / 需要 100 · 缺 95</div>
+          </div>
+          <div class="material">
+            <div class="name">关键情报／Vital Intelligence</div>
+            <div class="count short">当前 0 / 需要 1 · 缺 1</div>
+          </div>
+          <div class="material">
+            <div class="name">炽热的谜团／Searing Enigma</div>
+            <div class="count ready">当前 9893 / 需要 1 · 已满足</div>
+          </div>
+        </div>
+        <p class="save-note">任务状态也已满足：Death Hath No Dominion = 200，Walls of Nidah = 1。只需补齐上述两项缺口。</p>
+      </section>
+
+      <section id="obtain">
+        <h2>最短获取关键情报的方法</h2>
+
+        <article class="route">
+          <div class="route-head">
+            <span class="step">STEP 01</span>
+            <h3>在伦敦领取两次海军部委托</h3>
+          </div>
+          <div class="tag-row">
+            <span class="tag">Fallen London／沦敦</span>
+            <span class="tag">Dark-Spectacled Admiral／黑墨镜将军</span>
+          </div>
+          <ol>
+            <li>拜访黑墨镜将军，领取 Admiralty Commission／海军部委托。</li>
+            <li>前往委托指定的港口，选择相应的“为海军部取得战略情报”选项。</li>
+            <li>保留获得的战略情报，不要选择“传递战略情报”把它卖给将军。</li>
+            <li>重复一次，直到持有 2 份战略情报。</li>
+          </ol>
+          <p>委托地点可能包括 Whither、Codex、Cumaean Canal、Mt Palmerston、Khan's Heart、Port Cecil、Avid Horizon、Polythreme 等。按将军当前给出的目标航行即可。</p>
+        </article>
+
+        <article class="route">
+          <div class="route-head">
+            <span class="step">STEP 02</span>
+            <h3>在物品栏中组合关键情报</h3>
+          </div>
+          <ol>
+            <li>打开 Journal／日志或物品栏。</li>
+            <li>右键点击“战略情报”，选择“使用”。</li>
+            <li>进入“组合关键情报”事件。</li>
+            <li>选择任意一个可用的整理方法，消耗 2 份战略情报和 1 份辅助线索。</li>
+          </ol>
+
+          <div class="formula">
+            <span>2 × 战略情报</span>
+            <b>+</b>
+            <span>1 × 辅助线索</span>
+            <b>→</b>
+            <span>1 × 关键情报</span>
+          </div>
+
+          <p>辅助线索三选一：</p>
+          <ul>
+            <li>1 × Memory of Distant Shores／远方海岸的回忆，要求 Mirrors ≥ 40；</li>
+            <li>1 × Zee-ztory／海泽故事，要求 Mirrors ≥ 40；</li>
+            <li>1 × Moves in the Great Game／大博弈中的动向，要求 Mirrors ≥ 30。</li>
+          </ul>
+          <p class="save-note">你的存档三种辅助线索都非常充足：远方海岸的回忆 9857、海泽故事 598、大博弈中的动向 9900；属性门槛也远已满足。推荐随便选一种。</p>
+        </article>
+
+        <div class="callout warning">
+          <strong>关键提醒：</strong>
+          组合完成后不要把关键情报提交给黑墨镜将军或贪婪的外交官；这份情报要留给 Mariam 的武器研究。
+        </div>
+
+        <p class="small">替代方法：在 Khan's Heart 建立并发展间谍网络后，可通过“Seek intelligence”直接取得关键情报。但建立网络更费步骤，因此不如两份战略情报合成稳定。</p>
+      </section>
+
+      <section id="torpedoes">
+        <h2>补齐 95 个鱼雷部件</h2>
+        <article class="route">
+          <div class="route-head">
+            <span class="step">STEP 03</span>
+            <h3>在伦敦购买鱼雷</h3>
+          </div>
+          <div class="tag-row">
+            <span class="tag">Carrow's Naval Surplus</span>
+            <span class="tag">卡罗的海军军需品</span>
+          </div>
+          <ol>
+            <li>回到 Fallen London。</li>
+            <li>打开“卡罗的海军军需品”商店。</li>
+            <li>购买 95 个 Torpedo Components／鱼雷，每个 5 Echo。</li>
+          </ol>
+          <p class="save-note">总费用 475 Echo。鱼雷属于 Curiosity，不占货舱空间。</p>
+        </article>
+      </section>
+
+      <section id="finish">
+        <h2>执行武器研究</h2>
+        <article class="route">
+          <div class="route-head">
+            <span class="step">STEP 04</span>
+            <h3>回到 Mariam 处提交材料</h3>
+          </div>
+          <ol>
+            <li>确认持有 100 个鱼雷、1 份关键情报、1 个炽热的谜团。</li>
+            <li>返回 Scrimshander／骨雕馆的 Mariam。</li>
+            <li>进入“谋划尼达的倒台”。</li>
+            <li>选择“撕裂尼达的城墙：投资进行武器研究”。</li>
+          </ol>
+          <p>事件将消耗全部 100 个鱼雷、1 份关键情报和 1 个炽热的谜团，并把 Walls of Nidah 从 1 设为 0，表示城墙方案完成。</p>
+        </article>
+      </section>
+
+      <section id="checklist">
+        <h2>最短行动清单</h2>
+        <p class="small">勾选结果会保存在当前浏览器中。</p>
+        <div class="checklist">
+          <label class="check"><input type="checkbox" data-key="intel1"><span>完成第一次海军部委托，保留第 1 份战略情报</span></label>
+          <label class="check"><input type="checkbox" data-key="intel2"><span>完成第二次海军部委托，保留第 2 份战略情报</span></label>
+          <label class="check"><input type="checkbox" data-key="vital"><span>右键使用战略情报，组合出 1 份关键情报</span></label>
+          <label class="check"><input type="checkbox" data-key="keep"><span>不把关键情报提交给将军或外交官</span></label>
+          <label class="check"><input type="checkbox" data-key="torpedo"><span>在卡罗的海军军需品购买 95 个鱼雷</span></label>
+          <label class="check"><input type="checkbox" data-key="research"><span>向 Mariam 选择“投资进行武器研究”</span></label>
+        </div>
+      </section>
+
+      <section id="sources">
+        <h2>资料来源</h2>
+        <ul class="small">
+          <li>本地事件数据：投资武器研究要求 100 × Torpedo Components、1 × Vital Intelligence、1 × Searing Enigma。</li>
+          <li>本地品质数据：关键情报 ID 109774；战略情报 ID 108653。</li>
+          <li>当前 Autosave.json（仅读取，未修改）。</li>
+          <li><a href="https://sunlesssea.miraheze.org/wiki/Assemble_Vital_Intelligence">Official Wiki：Assemble Vital Intelligence</a></li>
+          <li><a href="https://sunlesssea.miraheze.org/wiki/Strategic_Information">Official Wiki：Strategic Information</a></li>
+          <li><a href="https://sunlesssea.miraheze.org/wiki/Engineering_the_Downfall_of_Nidah">Official Wiki：Engineering the Downfall of Nidah</a></li>
+          <li><a href="https://sunlesssea.miraheze.org/wiki/Carrow%27s_Naval_Surplus">Official Wiki：Carrow's Naval Surplus</a></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <footer>Sunless Sea · Nidah Walls · Experimental Munitions Research</footer>
+
+  <script>
+    const prefix = "sunless-nidah-walls-";
+    document.querySelectorAll("input[data-key]").forEach((box) => {
+      const saved = localStorage.getItem(prefix + box.dataset.key);
+      if (saved !== null) box.checked = saved === "1";
+      box.addEventListener("change", () => {
+        localStorage.setItem(prefix + box.dataset.key, box.checked ? "1" : "0");
+      });
+    });
+  </script>
+</body>
+</html>
