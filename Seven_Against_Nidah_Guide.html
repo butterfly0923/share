@@ -1,0 +1,521 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sunless Sea：重组对抗尼达的七人团</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #171d25;
+      --bg-deep: #0e141b;
+      --panel: #1b2838;
+      --panel-light: #22364a;
+      --line: #355269;
+      --text: #d6d7d8;
+      --muted: #8f98a0;
+      --blue: #66c0f4;
+      --blue-strong: #1a9fff;
+      --green: #a4d007;
+      --gold: #d6b45c;
+      --danger: #e57a7a;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scrollbar-color: #4b6578 var(--bg-deep);
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.7 "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+    }
+
+    a { color: var(--blue); }
+    a:hover { color: #fff; }
+
+    .hero {
+      border-bottom: 1px solid var(--line);
+      background: var(--bg-deep);
+    }
+
+    .hero-inner,
+    .layout {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .hero-inner { padding: 54px 0 46px; }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 820px;
+      margin: 0;
+      color: #fff;
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 300;
+      line-height: 1.12;
+    }
+
+    .subtitle {
+      max-width: 760px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 34px;
+      padding: 34px 0 70px;
+    }
+
+    nav {
+      position: sticky;
+      top: 22px;
+      align-self: start;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    nav strong {
+      display: block;
+      margin-bottom: 10px;
+      color: #fff;
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      display: block;
+      padding: 6px 0;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    nav a:hover { color: var(--blue); }
+
+    main { min-width: 0; }
+
+    section {
+      margin-bottom: 44px;
+      scroll-margin-top: 24px;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      color: #fff;
+      font-size: 26px;
+      font-weight: 400;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    p { margin: 8px 0 14px; }
+    ul, ol { margin: 8px 0 14px; padding-left: 24px; }
+    li + li { margin-top: 5px; }
+
+    .callout {
+      margin-bottom: 22px;
+      padding: 18px 20px;
+      border-left: 4px solid var(--blue-strong);
+      background: var(--panel-light);
+    }
+
+    .callout strong { color: #fff; }
+    .warning { border-left-color: var(--gold); }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .status {
+      padding: 16px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .status .label {
+      color: var(--muted);
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .status .value {
+      margin-top: 4px;
+      color: #fff;
+      font-size: 22px;
+    }
+
+    .status.done .value { color: var(--green); }
+
+    .step {
+      margin-bottom: 18px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .step-head {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .step-no {
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .1em;
+    }
+
+    .step h3 { margin: 0; }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 10px 0 14px;
+    }
+
+    .tag {
+      padding: 3px 9px;
+      border: 1px solid var(--line);
+      color: #c7d5e0;
+      background: var(--bg-deep);
+      font-size: 13px;
+    }
+
+    .inventory {
+      padding: 12px 14px;
+      border: 1px solid #526b33;
+      color: #cfe4a5;
+      background: #24321e;
+    }
+
+    .danger { color: var(--danger); }
+
+    .checklist {
+      display: grid;
+      gap: 9px;
+    }
+
+    .check {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 13px 15px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      cursor: pointer;
+    }
+
+    .check:hover { border-color: var(--blue); }
+
+    .check input {
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+      accent-color: var(--green);
+    }
+
+    .check span { flex: 1; }
+
+    .check input:checked + span {
+      color: var(--muted);
+      text-decoration: line-through;
+    }
+
+    .sources {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    footer {
+      padding: 28px 20px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      background: var(--bg-deep);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 850px) {
+      .layout { grid-template-columns: 1fr; }
+      nav { position: static; }
+      .status-grid { grid-template-columns: 1fr; }
+    }
+
+    @media print {
+      :root { color-scheme: light; }
+      body { background: #fff; color: #222; }
+      .hero, nav, .step, .status, .check, .callout {
+        background: #fff;
+        color: #222;
+      }
+      .hero { border-bottom: 2px solid #222; }
+      h1, h2, .status .value, .callout strong { color: #111; }
+      h3, a, .eyebrow, .step-no { color: #176a99; }
+      nav { display: none; }
+      .layout { display: block; width: 100%; padding: 24px; }
+      .step, .status, .check { break-inside: avoid; border-color: #999; }
+      footer { background: #fff; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Sunless Sea · Death Hath No Dominion</p>
+      <h1>重组对抗尼达的七人团</h1>
+      <p class="subtitle">根据本地剧情数据、当前存档和任务攻略整理的个性化步骤。目标：将“志向：七人团，再起”推进至 7/7。</p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav aria-label="目录">
+      <strong>航行目录</strong>
+      <a href="#truth">任务真相</a>
+      <a href="#save">当前存档</a>
+      <a href="#route">详细步骤</a>
+      <a href="#checklist">最短清单</a>
+      <a href="#after">完成以后</a>
+      <a href="#sources">资料来源</a>
+    </nav>
+
+    <main>
+      <section id="truth">
+        <h2>任务真相</h2>
+        <div class="callout">
+          <strong>你并不是要找回原来的七个人。</strong>
+          实际上需要填满六个职位；Mariam 因自身状态无法继续担任谋士，最后由你的船长成为新的第七位 Schemer／谋士。
+        </div>
+        <p>原成员中，Lorenzo 和 Lytton 无法归队，必须分别由 Isery 与 Fierce Philanthropist 接替。Bourdain 和 Rosina 则各有替代路线。</p>
+      </section>
+
+      <section id="save">
+        <h2>你的当前存档</h2>
+        <div class="status-grid">
+          <div class="status done">
+            <div class="label">已招募</div>
+            <div class="value">Batuk</div>
+          </div>
+          <div class="status">
+            <div class="label">当前计数</div>
+            <div class="value">1 / 7</div>
+          </div>
+          <div class="status">
+            <div class="label">仍需完成</div>
+            <div class="value">5 个职位</div>
+          </div>
+        </div>
+        <p class="sources">存档确认：Soldier = 5、Batuk's Indifference = 0；Captain、Guide、Financier、Propagandist、Healer 均为 1。</p>
+      </section>
+
+      <section id="route">
+        <h2>详细步骤</h2>
+
+        <article class="step">
+          <div class="step-head">
+            <span class="step-no">STEP 01</span>
+            <h3>招募舰队司令 Arik／阿里</h3>
+          </div>
+          <div class="meta">
+            <span class="tag">Hideaway／隐逸之地</span>
+            <span class="tag">Sprightly Visionary／矍铄的梦想家</span>
+          </div>
+          <ol>
+            <li>抵达 Hideaway，找到矍铄的梦想家。</li>
+            <li>选择“通知矍铄的梦想家对抗尼达的七人团回来了”。</li>
+            <li>Arik 会直接加入，Captain 职位完成。</li>
+          </ol>
+          <p class="inventory">存档状态：已经满足招募条件，不必先修理控制台，也不必完成 Hideaway 的独立支线。</p>
+        </article>
+
+        <article class="step">
+          <div class="step-head">
+            <span class="step-no">STEP 02</span>
+            <h3>招募向导 Isery／伊瑟琳</h3>
+          </div>
+          <div class="meta">
+            <span class="tag">Undercrow／地下鸦巢</span>
+            <span class="tag">Isle of Cats／猫岛</span>
+          </div>
+          <ol>
+            <li>先去 Undercrow 找 Almost Dead Man／将死之人，也就是 Lorenzo。</li>
+            <li>选择“邀请将死之人重新加入对抗尼达的七人团”。Lorenzo 无法归队，Guide 任务将转为寻找替代者。</li>
+            <li>前往 Isle of Cats，选择邀请 Isery 加入七人团。</li>
+            <li>接受“A Taste of You”：保护五项基础属性中的一项，其余四项各随机降低 1–3，并增加 10 点恐惧。</li>
+          </ol>
+          <p class="inventory">存档状态：Isery's Patronage = 2、Pirate-King's Notice = 5，完成 Lorenzo 步骤后即可邀请。你的属性很高，这点损失几乎没有影响。</p>
+        </article>
+
+        <article class="step">
+          <div class="step-head">
+            <span class="step-no">STEP 03</span>
+            <h3>招募资助人 Fierce Philanthropist／暴躁的慈善家</h3>
+          </div>
+          <div class="meta">
+            <span class="tag">Mount Palmerston／帕默斯顿山</span>
+            <span class="tag">London／伦敦</span>
+            <span class="tag">Port Carnelian／玛瑙港</span>
+          </div>
+          <p>招募需要同时交付：</p>
+          <ul>
+            <li>5 × Zzoup／滋滋汤</li>
+            <li>5 × Bale of Parabola-Linen／帕布拉亚麻</li>
+          </ul>
+          <ol>
+            <li>在 Mount Palmerston 的 Malebolge Excavations 购买 5 个滋滋汤，每个 70 Echo。</li>
+            <li>你已有 2 个帕布拉亚麻；在 London 的 Wolfstack Exchange 再购买 3 个，每个 120 Echo。</li>
+            <li>带齐物资前往 Port Carnelian，与慈善家继续喝雪莉酒。</li>
+            <li>选择“将她招募入七人团”。</li>
+          </ol>
+          <p class="inventory">当前库存：滋滋汤 0/5，帕布拉亚麻 2/5。仍需购买 5 个滋滋汤和 3 个帕布拉亚麻。</p>
+        </article>
+
+        <article class="step">
+          <div class="step-head">
+            <span class="step-no">STEP 04</span>
+            <h3>招募宣传家 Bourdain／布尔丹</h3>
+          </div>
+          <div class="meta">
+            <span class="tag">Wrack／残骸</span>
+            <span class="tag">Fair King／公平王</span>
+          </div>
+          <ol>
+            <li>抵达 Wrack，拜见 Fair King。</li>
+            <li>接近并调查国王珍藏的冰镜。</li>
+            <li>用 1 个 Judgements' Egg／审判之卵换取冰镜。</li>
+            <li>离港后处理船上的“Bourdain in Ice”事件，选择“邀请他重新加入七人团”。</li>
+          </ol>
+          <div class="callout warning">
+            <strong>不要去 Frostfound 搜索 Bourdain。</strong>
+            剧情提到他曾去过那里，但可招募的残余实际困在 Wrack 的冰镜里。
+          </div>
+          <p class="inventory">存档状态：拥有 9899 个审判之卵，可直接走这条路线。Voracious Diplomat 替代路线更繁琐，不推荐。</p>
+        </article>
+
+        <article class="step">
+          <div class="step-head">
+            <span class="step-no">STEP 05</span>
+            <h3>治愈并招募 Rosina／罗欣娜</h3>
+          </div>
+          <div class="meta">
+            <span class="tag">Anthe／安瑟</span>
+            <span class="tag">Rosina's Chambers</span>
+          </div>
+          <ol>
+            <li>在 Anthe 找到 Rosina，认识她并询问病情。</li>
+            <li>利用平静、乏味或抑制情绪的内容，将 Rosina's Health 提升到至少 20。</li>
+            <li>触发 Rosina's Recovery。</li>
+            <li>在康复后的房间选择“再度让罗欣娜在七人团中作为治愈者”。</li>
+          </ol>
+          <p>可靠手段：</p>
+          <ul>
+            <li>Drownie Song in Counterpoint：Health +5。</li>
+            <li>Drownie Hymn：Health +3。</li>
+            <li>如果 Visage: Expertise in Parts ≥ 3，可讲解 Visage 的社会等级。</li>
+          </ul>
+          <p class="danger"><strong>不要使用 Needle of Fortas：</strong>它会使 Rosina's Health 降低 2。</p>
+          <p class="inventory">存档状态：Rosina 支线尚未开始；你的 Hearts 有效值约 206，相关检定会很轻松。</p>
+        </article>
+
+        <article class="step">
+          <div class="step-head">
+            <span class="step-no">STEP 06</span>
+            <h3>返回 Mariam，成为第七位谋士</h3>
+          </div>
+          <div class="meta">
+            <span class="tag">Scrimshander／骨雕馆</span>
+            <span class="tag">Mariam／玛利亚姆</span>
+          </div>
+          <ol>
+            <li>确认六个职位均已完成：Captain、Guide、Financier、Propagandist、Soldier、Healer。</li>
+            <li>返回 Scrimshander 找 Mariam。</li>
+            <li>选择“告诉玛利亚姆六个人已经召集完成”。</li>
+            <li>你的船长成为新的 Schemer，七人计数变为 7/7。</li>
+          </ol>
+          <p class="inventory">完成后主志向将从“重组对抗尼达的七人团”推进到“和玛利亚姆计划对抗尼达”。</p>
+        </article>
+      </section>
+
+      <section id="checklist">
+        <h2>最短行动清单</h2>
+        <p class="sources">勾选状态会保存在当前浏览器中。</p>
+        <div class="checklist">
+          <label class="check"><input type="checkbox" data-key="batuk" checked><span>Batuk／士兵已经归队</span></label>
+          <label class="check"><input type="checkbox" data-key="arik"><span>Hideaway：通知矍铄的梦想家，招募 Arik</span></label>
+          <label class="check"><input type="checkbox" data-key="lorenzo"><span>Undercrow：询问 Lorenzo，解锁替代向导</span></label>
+          <label class="check"><input type="checkbox" data-key="isery"><span>Isle of Cats：接受记忆品尝，招募 Isery</span></label>
+          <label class="check"><input type="checkbox" data-key="supplies"><span>购买 5 个滋滋汤并补足 5 个帕布拉亚麻</span></label>
+          <label class="check"><input type="checkbox" data-key="philanthropist"><span>Port Carnelian：招募暴躁的慈善家</span></label>
+          <label class="check"><input type="checkbox" data-key="bourdain"><span>Wrack：用审判之卵换冰镜，招募 Bourdain</span></label>
+          <label class="check"><input type="checkbox" data-key="rosina"><span>Anthe：把 Rosina's Health 提升至 20 并招募</span></label>
+          <label class="check"><input type="checkbox" data-key="mariam"><span>Scrimshander：告诉 Mariam 六人已经集结</span></label>
+        </div>
+      </section>
+
+      <section id="after">
+        <h2>重组完成以后</h2>
+        <p>下一阶段需要为攻打 Nidah 解决三项障碍：</p>
+        <ul>
+          <li>击败 Presbyterate 的军队。</li>
+          <li>确定前往 Nidah 的路线。</li>
+          <li>攻破 Nidah 的城墙。</li>
+        </ul>
+        <p>这属于后续“Engineering the Downfall of Nidah”阶段，不影响当前 7/7 的重组目标。</p>
+      </section>
+
+      <section id="sources">
+        <h2>资料来源</h2>
+        <ul class="sources">
+          <li>本地存档：Autosave.json（仅读取，未修改）</li>
+          <li>本地英文事件数据与 Sunless_sea_CN_reborn 中文剧情数据</li>
+          <li><a href="https://sunlesssea.miraheze.org/wiki/Ambition:_the_Seven,_Anew">Official Sunless Sea Wiki：Ambition: the Seven, Anew</a></li>
+          <li><a href="https://gamefaqs.gamespot.com/pc/809482-sunless-sea/faqs/79208/the-seven-against-nidah">GameFAQs：The Seven Against Nidah</a></li>
+          <li><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=787820170">Steam Community：Immortality Guide</a></li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <footer>Sunless Sea · Seven Against Nidah · 单文件离线攻略</footer>
+
+  <script>
+    const prefix = "sunless-seven-";
+    document.querySelectorAll("input[data-key]").forEach((box) => {
+      const saved = localStorage.getItem(prefix + box.dataset.key);
+      if (saved !== null) box.checked = saved === "1";
+      box.addEventListener("change", () => {
+        localStorage.setItem(prefix + box.dataset.key, box.checked ? "1" : "0");
+      });
+    });
+  </script>
+</body>
+</html>
