@@ -1,0 +1,660 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sunless Sea：父亲的遗骨完整攻略</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #171d25;
+      --deep: #0e141b;
+      --panel: #1b2838;
+      --panel2: #21364a;
+      --line: #355269;
+      --text: #d6d7d8;
+      --muted: #8f98a0;
+      --blue: #66c0f4;
+      --blue2: #1a9fff;
+      --green: #a4d007;
+      --gold: #d6b45c;
+      --red: #e78383;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scrollbar-color: #4b6578 var(--deep); }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font: 16px/1.72 "Segoe UI", "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+    }
+
+    a { color: var(--blue); }
+    a:hover { color: #fff; }
+
+    .hero {
+      border-bottom: 1px solid var(--line);
+      background:
+        radial-gradient(circle at 82% 15%, rgba(102, 192, 244, .11), transparent 28%),
+        var(--deep);
+    }
+
+    .hero-inner, .layout {
+      width: min(1180px, calc(100% - 40px));
+      margin: auto;
+    }
+
+    .hero-inner { padding: 54px 0 46px; }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 900px;
+      margin: 0;
+      color: #fff;
+      font-size: clamp(34px, 5vw, 58px);
+      font-weight: 300;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      max-width: 850px;
+      margin: 18px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 34px;
+      padding: 34px 0 70px;
+    }
+
+    nav {
+      position: sticky;
+      top: 20px;
+      align-self: start;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    nav strong {
+      display: block;
+      margin-bottom: 10px;
+      color: #fff;
+      font-size: 13px;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    nav a {
+      display: block;
+      padding: 6px 0;
+      color: var(--muted);
+      text-decoration: none;
+    }
+
+    nav a:hover { color: var(--blue); }
+    main { min-width: 0; }
+
+    section {
+      margin-bottom: 44px;
+      scroll-margin-top: 22px;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+      color: #fff;
+      font-size: 27px;
+      font-weight: 400;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      color: var(--blue);
+      font-size: 20px;
+      font-weight: 500;
+    }
+
+    p { margin: 8px 0 14px; }
+    ul, ol { margin: 8px 0 14px; padding-left: 24px; }
+    li + li { margin-top: 5px; }
+
+    code {
+      padding: 2px 6px;
+      border: 1px solid #3c566b;
+      background: #142231;
+      color: #c7e8fa;
+      font-family: Consolas, monospace;
+    }
+
+    .callout {
+      margin-bottom: 20px;
+      padding: 18px 20px;
+      border-left: 4px solid var(--blue2);
+      background: var(--panel2);
+    }
+
+    .callout strong { color: #fff; }
+    .success { border-left-color: var(--green); }
+    .warning { border-left-color: var(--gold); }
+    .danger { border-left-color: var(--red); }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .status {
+      padding: 16px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .status .label {
+      color: var(--muted);
+      font-size: 12px;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+    }
+
+    .status .value {
+      margin-top: 4px;
+      color: #fff;
+      font-size: 20px;
+    }
+
+    .status.good .value { color: var(--green); }
+
+    .route {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      background: var(--deep);
+    }
+
+    .route span {
+      padding: 7px 10px;
+      border: 1px solid #3c566b;
+      background: var(--panel2);
+      color: #fff;
+    }
+
+    .route b { color: var(--blue); }
+
+    .step {
+      position: relative;
+      margin-bottom: 16px;
+      padding: 20px 22px 20px 60px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    .step-no {
+      position: absolute;
+      top: 21px;
+      left: 20px;
+      width: 27px;
+      height: 27px;
+      border-radius: 2px;
+      background: var(--blue2);
+      color: #fff;
+      font-weight: 700;
+      line-height: 27px;
+      text-align: center;
+    }
+
+    .step h3 { color: #fff; }
+    .step p:last-child, .step ul:last-child { margin-bottom: 0; }
+
+    label.check {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin-top: 13px;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    label.check input {
+      width: 18px;
+      height: 18px;
+      margin-top: 4px;
+      accent-color: var(--green);
+    }
+
+    label.check:has(input:checked) {
+      color: var(--green);
+      text-decoration: line-through;
+      text-decoration-thickness: 1px;
+    }
+
+    .table-wrap { overflow-x: auto; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel);
+    }
+
+    th, td {
+      padding: 13px 14px;
+      border: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--panel2);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    td:first-child { color: var(--blue); white-space: nowrap; }
+
+    details {
+      margin-bottom: 12px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+    }
+
+    summary {
+      padding: 15px 18px;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    details > div {
+      padding: 0 18px 17px;
+      border-top: 1px solid var(--line);
+    }
+
+    .tag {
+      display: inline-block;
+      margin-right: 7px;
+      padding: 2px 7px;
+      border: 1px solid #47708d;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .04em;
+    }
+
+    .source-list {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .footer-note {
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 850px) {
+      .layout { grid-template-columns: 1fr; }
+      nav { position: static; }
+      .status-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 520px) {
+      .hero-inner, .layout { width: min(100% - 24px, 1180px); }
+      .status-grid { grid-template-columns: 1fr; }
+      .step { padding-left: 20px; }
+      .step-no { position: static; display: inline-block; margin-bottom: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Sunless Sea · Ambition Walkthrough</p>
+      <h1>父亲的遗骨<br>Your Father’s Bones</h1>
+      <p class="subtitle">
+        从当前新船长开局到胜利的完整路线。你的背景恰好是「自然哲学家」，
+        因而可以使用本任务最短、也最特别的隐藏路线：不交深寻王的六件贡品，直接把活着的父亲带回伦敦。
+      </p>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav>
+      <strong>指南目录</strong>
+      <a href="#current">当前存档</a>
+      <a href="#quick">最短路线总览</a>
+      <a href="#steps">逐步操作</a>
+      <a href="#warnings">关键警告</a>
+      <a href="#other-pasts">其他背景路线</a>
+      <a href="#demands">六项贡品附录</a>
+      <a href="#sources">资料来源</a>
+    </nav>
+
+    <main>
+      <section id="current">
+        <h2>当前存档：已经是最佳开局</h2>
+        <div class="status-grid">
+          <div class="status good">
+            <div class="label">Ambition</div>
+            <div class="value">父亲的遗骨</div>
+          </div>
+          <div class="status good">
+            <div class="label">Your Past</div>
+            <div class="value">自然哲学家</div>
+          </div>
+          <div class="status">
+            <div class="label">A Cold Trail</div>
+            <div class="value">Level 6</div>
+          </div>
+          <div class="status good">
+            <div class="label">Echoes</div>
+            <div class="value">999,001</div>
+          </div>
+        </div>
+        <div class="callout success">
+          <strong>存档结论：</strong>任务正停在第一步「给伦敦的仁慈寡妇带回 1 份闪晶」。
+          你无需重开，也无需更换背景。自然哲学家是唯一能够发现父亲其实还活着的背景。
+        </div>
+      </section>
+
+      <section id="quick">
+        <h2>最短路线总览</h2>
+        <div class="route" aria-label="任务路线">
+          <span>塞西尔港<br><b>取闪晶</b></span> →
+          <span>伦敦<br><b>交给寡妇</b></span> →
+          <span>面容岛<br><b>第一次找收尸人</b></span> →
+          <span>深寻王城堡<br><b>只问答案</b></span> →
+          <span>面容岛<br><b>揭穿收尸人</b></span> →
+          <span>伦敦<br><b>支付 6,000，胜利</b></span>
+        </div>
+        <p>
+          这一隐藏路线绕过标准流程中最耗时的「深寻王六项要求」。
+          核心触发条件是：先让深寻王开出六项要求，再在完成这些要求之前回到面容岛。
+        </p>
+      </section>
+
+      <section id="steps">
+        <h2>逐步操作</h2>
+
+        <article class="step">
+          <span class="step-no">0</span>
+          <h3>出航准备</h3>
+          <ul>
+            <li>至少准备 <strong>1 个海泽故事（Zee-ztory）</strong>，用于进入深寻王的宫廷。</li>
+            <li>保留至少 <strong>6,000 Echoes</strong>；你的现金远远足够。</li>
+            <li>远航前补足燃料和补给；打开海泽蝠寻找塞西尔港、面容岛和深寻王城堡。</li>
+            <li>为方便采集闪晶，抵达塞西尔港时最好让日志显示「Something Awaits You / 有故事在等待」。</li>
+          </ul>
+          <label class="check"><input type="checkbox" data-key="prep">已备好海泽故事、燃料、补给和 6,000 Echoes</label>
+        </article>
+
+        <article class="step">
+          <span class="step-no">1</span>
+          <h3>塞西尔港（Port Cecil）：取得 1 份闪晶</h3>
+          <p>
+            塞西尔港通常位于海图中部至东北部、汗国附近。停靠后选择
+            <strong>「收集闪晶 / Gather Scintillack」</strong>。该行动消耗一次
+            Something Awaits You，并进行 Mirrors 检定；成功可得 1–3 份闪晶。
+          </p>
+          <div class="callout">
+            你的 Mirrors 已是 200，这项检定基本不构成障碍。只需要 <strong>1 份</strong>，
+            不必在这里推进整条珊瑚象棋任务。
+          </div>
+          <label class="check"><input type="checkbox" data-key="scintillack">已取得至少 1 份闪晶</label>
+        </article>
+
+        <article class="step">
+          <span class="step-no">2</span>
+          <h3>返回伦敦：把闪晶交给仁慈的寡妇</h3>
+          <p>
+            回到 Fallen London，在与任务相关的事件中拜访
+            <strong>仁慈的寡妇（Merciful/Affectionate Deviless Widow）</strong>，
+            交出 1 份闪晶。任务日志随后应改为前往
+            <strong>面容岛（Visage）</strong>。
+          </p>
+          <label class="check"><input type="checkbox" data-key="widow">已交付闪晶，日志要求寻找面容岛</label>
+        </article>
+
+        <article class="step">
+          <span class="step-no">3</span>
+          <h3>第一次到面容岛：追问收尸人</h3>
+          <p>
+            面容岛一般位于南部，常在钢铁共和国以东、塞西尔港附近。上岸后进入更衣处，
+            <strong>任选一副面具</strong>，再寻找与
+            <strong>「收尸人 / The Assigner of Corpses」</strong>有关的任务选项。
+          </p>
+          <p>
+            这一次不会找到遗骨：你会看见一个戴鳄鱼面具的人运送尸体。他声称尸体属于深寻王，
+            任务由此指向<strong>深寻王城堡（Fathomking’s Hold）</strong>。
+          </p>
+          <label class="check"><input type="checkbox" data-key="visage-first">已在面容岛触发线索，日志要求拜访深寻王</label>
+        </article>
+
+        <article class="step">
+          <span class="step-no">4</span>
+          <h3>深寻王城堡：让他开出六项要求</h3>
+          <p>
+            深寻王城堡通常在钢铁共和国正东一带。停靠后花费
+            <strong>1 个海泽故事</strong>获得觐见，依次选择：
+          </p>
+          <ol>
+            <li><strong>讨论父亲遗骨的事情</strong>；</li>
+            <li><strong>请求帮助 / Ask for assistance</strong>；</li>
+            <li>听完深寻王列出的六项要求。</li>
+          </ol>
+          <div class="callout warning">
+            <strong>关键节点：</strong>六项要求出现后就立刻离开。
+            不要为了这条最短路线去集齐并全部交付六项贡品，也不要先领取「深寻王的钥匙」。
+          </div>
+          <label class="check"><input type="checkbox" data-key="fathomking">日志中已出现深寻王的六项要求</label>
+        </article>
+
+        <article class="step">
+          <span class="step-no">5</span>
+          <h3>立刻返回面容岛：发现父亲还活着</h3>
+          <p>
+            再次上岸，仍然先在更衣处<strong>任选一副面具</strong>，然后再次找到
+            <strong>收尸人</strong>。自然哲学家专属事件会触发：你坚持追问后，
+            收尸人摘下面具——他正是你的父亲，而且根本没有死。
+          </p>
+          <p>接下来会出现两个方向：</p>
+          <ul>
+            <li><strong>推荐：Take your father home / 带父亲回家。</strong>需要你抵达伦敦时仍持有至少 6,000 Echoes。</li>
+            <li><strong>只带走一包“遗骨”。</strong>无需偿债，但会错过把父亲本人带回家的隐藏结局。</li>
+          </ul>
+          <label class="check"><input type="checkbox" data-key="father">已选择带父亲本人回家</label>
+        </article>
+
+        <article class="step">
+          <span class="step-no">6</span>
+          <h3>回到伦敦：支付债务并获得胜利</h3>
+          <p>
+            在进港前确认现金不低于 <strong>6,000 Echoes</strong>。返回伦敦会触发
+            <strong>Your Father’s Return</strong>，支付他欠寡妇的 6,000 Echoes，
+            本轮游戏以完成「父亲的遗骨」志向而胜利。
+          </p>
+          <div class="callout success">
+            这条结局带回的是活着的父亲。此后在遗产选择中还可以把
+            <strong>Your Father</strong>作为军官传给下一任船长；不过该遗产可能让新档立即再次检查胜利条件。
+          </div>
+          <label class="check"><input type="checkbox" data-key="victory">已带父亲返回伦敦并完成志向</label>
+        </article>
+      </section>
+
+      <section id="warnings">
+        <h2>关键警告与排错</h2>
+        <div class="callout danger">
+          <strong>进伦敦前必须保留 6,000 Echoes。</strong>
+          本地汉化事件明确写明：若带着活着的父亲进港时现金不足，任务会失败。
+        </div>
+        <ul>
+          <li>第二次返回面容岛的隐藏揭露，仅限<strong>自然哲学家背景</strong>。</li>
+          <li>必须先去深寻王处<strong>请求帮助并收到六项要求</strong>，过早返回面容岛不会揭露真相。</li>
+          <li>如果面容岛没有收尸人选项，确认已经选过一副面具，并检查日志的「父亲的遗骨：冰冷的痕迹」。</li>
+          <li>如果已经完成六项要求并拿到钥匙，隐藏救父路线可能已经错过；仍可按正常路线回面容岛取得遗骨并获胜。</li>
+          <li>建议在深寻王开出要求后、第二次停靠面容岛前各留一个手动存档。</li>
+        </ul>
+      </section>
+
+      <section id="other-pasts">
+        <h2>如果以后换用其他出身</h2>
+        <p>
+          出身只改变开头线索和拿到深寻王钥匙后的最终地点；中段的六项要求相同。
+          当前船长无需使用这张表。
+        </p>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>出身</th>
+                <th>伦敦的第一份交付</th>
+                <th>第一处线索港口</th>
+                <th>取得钥匙后的最终地点</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>街头顽童</td>
+                <td>1 × Mutersalt；可在 Whither 用 5 × Zee-ztory 换取</td>
+                <td>The Chelonate / 鳌阜</td>
+                <td>回鳌阜交还被盗骨头</td>
+              </tr>
+              <tr>
+                <td>诗人</td>
+                <td>1 × Zee-ztory、1 × Tale of Terror、1 × Memory of Distant Shores</td>
+                <td>Nuncio / 农西奥</td>
+                <td>回农西奥说出投递地址</td>
+              </tr>
+              <tr>
+                <td>士兵</td>
+                <td>3 × Admiralty’s Favour；交三份新港口报告后找海军上将</td>
+                <td>Kingeater’s Castle / 噬王者城堡</td>
+                <td>回城堡将珊瑚刀与另一把配对</td>
+              </tr>
+              <tr>
+                <td>堕落牧师</td>
+                <td>2 × Darkdrop Coffee；伦敦每袋 50 Echoes</td>
+                <td>Avid Horizon / 渴求之地平线</td>
+                <td>依线索前往 Chapel of Lights；有额外分支</td>
+              </tr>
+              <tr>
+                <td>自然哲学家</td>
+                <td>1 × Scintillack / 闪晶</td>
+                <td>Visage / 面容岛</td>
+                <td>回面容岛；可触发“父亲仍活着”的隐藏路线</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="demands">
+        <h2>附录：标准路线的六项贡品</h2>
+        <div class="callout">
+          <strong>当前船长不用做这一节。</strong>
+          只有其他出身，或你主动放弃自然哲学家的隐藏捷径时，才需要完成全部六项。
+        </div>
+
+        <details>
+          <summary>1. 传奇之心（A Legend’s Heart）</summary>
+          <div>
+            <p>四选一：Pirate-Poet’s Heart、Merciless Modiste’s Heart、Heart of the Tree of Ages、Mt Nomad’s Heart。</p>
+            <p><span class="tag">实用选择</span>高属性船长可击杀 Mt Nomad，但会招致 Salt’s Curse；若在意情人或继承人，改走 Merciless Modiste 的个人任务更稳妥。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>2. 科学奇迹（A Miracle of Science）</summary>
+          <div>
+            <p>可交 The Serpentine、Memento Mori 或 Fulgent Impeller。</p>
+            <p><span class="tag">推荐</span>把 Genial Magician 晋升为 Satisfied Magician 后，可在伦敦船坞花 1,200 Echoes反复制造 The Serpentine，交掉后还能再买。</p>
+            <p><strong>不要交 Icarus in Black：</strong>选项虽会出现，但深寻王不接受。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>3. 天空之光（A Sky-Light）</summary>
+          <div>
+            <p>可交 Sunlight-Filled Mirrorcatch Box、Mountain-sherd 或 Element of Dawn。</p>
+            <p><span class="tag">有钱最快</span>在 Port Carnelian 的 Sapphire Exchange 直接花 <strong>2,000 Echoes</strong>购买 Mountain-sherd。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>4. 自愿宾客（A Willing Guest）</summary>
+          <div>
+            <p>只能交 Nacreous Survivor 或 Bandaged Chef-Paramount，两者都会永久离队。</p>
+            <p>Bandaged Chef-Paramount 来自 Venderbight 招募的 Bandaged Poissonnier 个人任务；普通 Shady Cook 不算。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>5. 古老存在的终结（An Eldest’s End）</summary>
+          <div>
+            <p>完成 Venderbight 的 Curator 长任务，或完成 Port Cecil 的珊瑚象棋任务并在最终局<strong>选择获胜</strong>。</p>
+            <p>Port Cecil 路线需为棋局收集 Wakeful Idol、Heartmetal、Fluke-Core、Ambiguous Eolith，以及 Hunting-Trophy 或 Stygian Ivory。</p>
+            <p><strong>冲突提醒：</strong>象棋终局若选择输掉比赛可保住并晋升 Nacreous Survivor，但不能同时获得“古老存在的终结”；想以象棋满足本项，宾客应改用 Chef-Paramount。</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>6. 永恒之树的果实（Fruit of the Eternal Tree）</summary>
+          <div>
+            <p>可交 Hesperidean Apple 或 Uttershroom Sporule。</p>
+            <p><span class="tag">推荐</span>带 1 袋 Darkdrop Coffee 和 1 个 Searing Enigma 去 Irem；用咖啡进入 Mirror-Marches，再用 Searing Enigma 选择「Rarest fruit」取得苹果。</p>
+          </div>
+        </details>
+
+        <p>
+          六项全部交完后，在深寻王处领取 <strong>The Fathomking’s Key</strong>，
+          再按出身返回对应港口取得父亲的遗骨，最后带回伦敦退休获胜。
+        </p>
+      </section>
+
+      <section id="sources">
+        <h2>核对依据</h2>
+        <ul class="source-list">
+          <li>本地汉化事件数据：自然哲学家开局交闪晶、面容岛收尸人事件、深寻王六项要求、6,000 Echoes 失败条件。</li>
+          <li><a href="https://sunlesssea.miraheze.org/wiki/Your_Father%27s_Bones_(Ambition)">Official Sunless Sea Wiki：Your Father’s Bones (Ambition)</a></li>
+          <li><a href="https://sunlesssea.miraheze.org/wiki/Ashore_in_Visage">Official Wiki：Ashore in Visage</a></li>
+          <li><a href="https://sunlesssea.miraheze.org/wiki/The_Fathomking%27s_Answer">Official Wiki：The Fathomking’s Answer</a></li>
+          <li><a href="https://sunlesssea.miraheze.org/wiki/Your_Father%27s_Bones">Official Wiki：Your Father’s Bones</a></li>
+        </ul>
+        <p class="footer-note">
+          本页为单文件离线指南；勾选进度保存在浏览器 localStorage 中。内容按当前存档状态定制。
+        </p>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const prefix = "sunless-fathers-bones-";
+    document.querySelectorAll("input[data-key]").forEach((box) => {
+      const saved = localStorage.getItem(prefix + box.dataset.key);
+      if (saved !== null) box.checked = saved === "1";
+      box.addEventListener("change", () => {
+        localStorage.setItem(prefix + box.dataset.key, box.checked ? "1" : "0");
+      });
+    });
+  </script>
+</body>
+</html>
