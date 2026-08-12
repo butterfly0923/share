@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pylon Steps</title>
+<style>
+  body {
+    font-family: Georgia, "Times New Roman", serif;
+    color: #000;
+    background: #fff;
+    line-height: 1.6;
+    max-width: 48rem;
+    margin: 2rem auto;
+    padding: 0 1.25rem 3rem;
+  }
+  h1, h2, h3, h4 {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-top: 1.75em;
+    margin-bottom: 0.6em;
+  }
+  h1 { font-size: 1.75rem; }
+  h2 { font-size: 1.4rem; border-bottom: 1px solid #000; padding-bottom: 0.25em; }
+  h3 { font-size: 1.15rem; }
+  h4 { font-size: 1rem; }
+  p { margin: 0.75em 0; }
+  ul, ol { margin: 0.75em 0; padding-left: 1.5em; }
+  li { margin: 0.35em 0; }
+  li > ul, li > ol { margin: 0.25em 0; }
+  hr {
+    border: none;
+    border-top: 1px solid #000;
+    margin: 2em 0;
+  }
+  code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 0.92em;
+    border: 1px solid #000;
+    padding: 0.05em 0.3em;
+  }
+  strong { font-weight: 700; }
+  em { font-style: italic; }
+  blockquote {
+    margin: 1em 0;
+    padding: 0.5em 0 0.5em 1em;
+    border-left: 3px solid #000;
+  }
+  blockquote p { margin: 0; }
+</style>
+</head>
+<body>
+
+<p>我先快速查一下内部资料里跟 Pylon、NVAPI、AMD、GIFT 相关的上下文，这样我问你的问题会更贴近你们现在的环境，而不是泛泛地问。</p>
+
+<p>I found a few internal references that are directly relevant: Pylon has replay knobs like <code>--no-nvapi-replay</code> and <code>--no-nvapi-latency-marker-replay</code>, there’s an internal “Pylon for the APIC Enjoyer” page, and the Perf Inspector/GIFT docs confirm that <code>DynamicBucketing.csv</code> is the file used to carry bucket timing into the PI report. To make the plan actionable for your exact situation instead of generic, I need a little context from you:</p>
+
+<h3>Recommended approach</h3>
+
+<p>Given your scope and access, I’d tackle this as a <strong>two-track study</strong>:</p>
+
+<ol>
+  <li><strong>Unblock as many AMD replays as possible</strong> by classifying failures and isolating NVAPI dependence. Pylon already exposes replay controls such as <code>--no-nvapi-replay</code>, <code>--no-nvapi-latency-marker-replay</code>, and app-profile controls, so you can do meaningful isolation work without modifying core Pylon.</li>
+  <li><strong>In parallel, build an NV-side comparison harness</strong> to measure the perf impact of replacing NVAPI paths with standard DX paths, because your boss’s real question is not just “what fails on AMD?” but “how much would we lose if we de-NVAPI the trace/package?”</li>
+</ol>
+
+<p>Also, one important framing point: what you’re calling “per-drawcall” is probably really <strong>bucket-level</strong> in the current GIFT/PIC-Perfalyze flow. Internally, GIFT timing/reporting is bucket-based, and your own prior discussion with Qilei says the “per-drawcall” name is historical and the current flow uses bucket-level data via <code>DynamicBucketing.csv</code>.</p>
+
+<hr>
+
+<h3>What I would do: detailed to-do list</h3>
+
+<h2>Phase 0: Define the output package first</h2>
+
+<h4>0.1 Create one master tracker</h4>
+<p>Make a spreadsheet with one row per trace and these columns:</p>
+
+<ul>
+  <li>Trace name</li>
+  <li>API (<code>D3D12</code> / <code>Vulkan</code>)</li>
+  <li>APIC package available?</li>
+  <li>Pylon capture available?</li>
+  <li>AMD GPU / driver used</li>
+  <li>NV GPU / driver used</li>
+  <li>AMD replay result (<code>pass</code>, <code>fail at startup</code>, <code>fail mid-frame</code>, <code>hang</code>, <code>image mismatch</code>)</li>
+  <li><code>DynamicBucketing.csv</code> generated?</li>
+  <li>PI report generated?</li>
+  <li>NVAPI calls observed in failing run</li>
+  <li>Suspected blocker category</li>
+  <li>Can try replay flag only?</li>
+  <li>Needs trace/package edit?</li>
+  <li>Candidate standard DX replacement?</li>
+  <li>NV perf delta measured?</li>
+  <li>Final recommendation</li>
+</ul>
+
+<p>This gives you the structure needed to answer all five boss questions with evidence instead of notes.</p>
+
+<h4>0.2 Define success criteria up front</h4>
+<p>For this study, count a trace as “usable on AMD” only if:</p>
+<ul>
+  <li>Pylon replay completes,</li>
+  <li>you can generate a PI report,</li>
+  <li>and <code>DynamicBucketing.csv</code> is present and usable for bucket timing. The PI/GIFT docs explicitly describe <code>DynamicBucketing.csv</code> as the report-side bucket timing metadata file.</li>
+</ul>
+
+<hr>
+
+<h2>Phase 1: Build the baseline evidence set</h2>
+
+<h4>1.1 Normalize the current 17-trace status</h4>
+<p>For all 17 traces, gather into one folder:</p>
+<ul>
+  <li>pass/fail summary,</li>
+  <li>replay stdout/stderr,</li>
+  <li>crash logs,</li>
+  <li>any image diff or validation output,</li>
+  <li>the exact command line used,</li>
+  <li>GPU model and driver version.</li>
+</ul>
+
+<h4>1.2 Split the 17 traces into 4 buckets</h4>
+<p>Classify each failing trace into:</p>
+<ul>
+  <li>fails before replay starts,</li>
+  <li>fails during resource/pipeline init,</li>
+  <li>fails when issuing GPU work,</li>
+  <li>runs but cannot produce a valid report.</li>
+</ul>
+
+<p>This matters because NVAPI-related failures usually cluster around replay init, extension setup, app profile handling, latency markers, AS/work-graph/ray-tracing setup, or driver-private feature calls. Pylon’s own replay options suggest these are separable axes.</p>
+
+<h4>1.3 Record API type first</h4>
+<p>If any trace is DX11, stop spending time on Pylon for that trace because the APIC/Pylon doc says Pylon supports only DX12 and Vulkan, not DX11.</p>
+
+<hr>
+
+<h2>Phase 2: Answer “Do APICs with NVAPI calls fail on AMD?”</h2>
+
+<h4>2.1 Build a trace-level correlation table</h4>
+<p>For each of the 17 traces, create two booleans:</p>
+<ul>
+  <li>“contains NVAPI activity”</li>
+  <li>“fails on AMD”</li>
+</ul>
+
+<p>Then make a simple 2x2 table:</p>
+<ul>
+  <li>NVAPI present + passes</li>
+  <li>NVAPI present + fails</li>
+  <li>no NVAPI + passes</li>
+  <li>no NVAPI + fails</li>
+</ul>
+
+<p>This is your first direct answer to the APIC/Pylon question.</p>
+
+<h4>2.2 Use replay-flag A/B experiments to strengthen the conclusion</h4>
+<p>For each failing trace, rerun with:</p>
+<ul>
+  <li>default,</li>
+  <li><code>--no-nvapi-replay</code>,</li>
+  <li><code>--no-nvapi-latency-marker-replay</code>,</li>
+  <li><code>--no-app-profile</code>,</li>
+  <li>optionally <code>--nv-app-profile-via-env</code> if profile setup itself looks suspicious. Pylon exposes all of these knobs.</li>
+</ul>
+
+<p>Interpretation:</p>
+<ul>
+  <li>If <code>--no-nvapi-replay</code> turns a fail into a pass, the trace is <strong>NVAPI-sensitive</strong>.</li>
+  <li>If only <code>--no-nvapi-latency-marker-replay</code> helps, the blocker is likely not core rendering functionality.</li>
+  <li>If <code>--no-app-profile</code> helps, the issue may be profile/application registration, not rendering semantics.</li>
+</ul>
+
+<h4>2.3 Produce a concise boss-facing statement</h4>
+<p>At the end of this phase, you want one sentence like:</p>
+<blockquote>
+  <p>“APIC/Pylon traces that contain NVAPI do not universally fail on AMD, but NVAPI presence is strongly enriched among the failing set; disabling NVAPI replay converts X traces from fail to pass, which suggests replayed NVAPI behavior is a primary blocker for those traces.”</p>
+</blockquote>
+
+<p>Do not claim stronger than the evidence.</p>
+
+<hr>
+
+<h2>Phase 3: Answer “Which NVAPI calls trigger failures?”</h2>
+
+<h4>3.1 Extract the failing call window</h4>
+<p>For each failed replay, identify:</p>
+<ul>
+  <li>last successful call,</li>
+  <li>first error / exception / hang marker,</li>
+  <li>nearest NVAPI call before failure.</li>
+</ul>
+
+<p>If Pylon supports diagnostic mode or driver-debug-state in your environment, enable them for a second run on the top failing traces because those options are specifically meant for replay failure diagnosis and identifying call number/state.</p>
+
+<h4>3.2 Group failures by NVAPI call family</h4>
+<p>Create categories rather than a flat call list:</p>
+<ul>
+  <li>app/profile calls,</li>
+  <li>latency marker / Reflex-related,</li>
+  <li>ray tracing / AS-related,</li>
+  <li>driver debug / diagnostics,</li>
+  <li>vendor-private feature enablement,</li>
+  <li>memory/addressing / replay object handling.</li>
+</ul>
+
+<p>This is the form your boss will actually understand.</p>
+
+<h4>3.3 Rank by frequency and causality</h4>
+<p>For each NVAPI call family, label it:</p>
+<ul>
+  <li>observed near failure only,</li>
+  <li>strongly suspected blocker,</li>
+  <li>causally supported by flag A/B,</li>
+  <li>needs deeper owner confirmation.</li>
+</ul>
+
+<p>That distinction is important because proximity is not proof.</p>
+
+<hr>
+
+<h2>Phase 4: Test your boss’s hypothesis: “Skipping those NVAPI calls may not be enough”</h2>
+
+<h4>4.1 Explicitly run skip-only experiments</h4>
+<p>For each representative failing trace, compare:</p>
+<ul>
+  <li>default replay</li>
+  <li><code>--no-nvapi-replay</code></li>
+  <li><code>--no-nvapi-replay</code> plus any other safe replay knobs you already use</li>
+  <li>if possible, an altered package/trace config that skips the specific feature path only</li>
+</ul>
+
+<p>If replay passes but visuals/workload semantics become invalid, record it as:</p>
+<ul>
+  <li>“technically runs, not analytically usable.”</li>
+</ul>
+
+<h4>4.2 Validate output quality, not just survival</h4>
+<p>For every “pass after skipping NVAPI” case, verify:</p>
+<ul>
+  <li>frame renders,</li>
+  <li>no catastrophic corruption,</li>
+  <li>PI report is generated,</li>
+  <li><code>DynamicBucketing.csv</code> exists and bucket structure is believable.</li>
+</ul>
+
+<p>A pass that produces unusable buckets does not answer your competition need.</p>
+
+<h4>4.3 Separate “functional unblock” from “correct replay”</h4>
+<p>Your end table should distinguish:</p>
+<ul>
+  <li>Passes correctly</li>
+  <li>Passes with degraded semantics</li>
+  <li>Passes but loses bucket fidelity</li>
+  <li>Still fails</li>
+</ul>
+
+<p>That will directly support your boss’s suspicion that “simply skipping” may not be enough.</p>
+
+<hr>
+
+<h2>Phase 5: Explore “Can we replace NVAPI calls with standard DX?”</h2>
+
+<p>Since you can patch scripts/configs but not core Pylon, your job here is mainly <strong>feasibility triage</strong>, not full implementation.</p>
+
+<h4>5.1 Build a replacement matrix</h4>
+<p>For each failing NVAPI family, add columns:</p>
+<ul>
+  <li>What is the NVAPI call doing conceptually?</li>
+  <li>Is there an obvious standard DX12 equivalent?</li>
+  <li>Would DX replacement preserve replay semantics?</li>
+  <li>Can replacement be done outside core Pylon?</li>
+  <li>Who owns the feature if deeper code changes are needed?</li>
+</ul>
+
+<h4>5.2 Triage into 3 classes</h4>
+<p>Class A: <strong>Likely replaceable with standard DX</strong></p>
+<ul>
+  <li>pure metadata or optional hints,</li>
+  <li>latency markers / profiling markers,</li>
+  <li>app-profile-like behavior that has no semantic effect on rendering.</li>
+</ul>
+
+<p>Class B: <strong>Potentially replaceable but risky</strong></p>
+<ul>
+  <li>barrier/state/path selection that may map to DX12 but not 1:1,</li>
+  <li>some RT-related setup depending on whether standard DXR path exists.</li>
+</ul>
+
+<p>Class C: <strong>Not realistically replaceable in your scope</strong></p>
+<ul>
+  <li>vendor-private functionality with no DX analogue,</li>
+  <li>anything that changes hidden driver behavior,</li>
+  <li>anything requiring core replay/runtime changes.</li>
+</ul>
+
+<h4>5.3 Use AI only where it helps</h4>
+<p>AI can help generate:</p>
+<ul>
+  <li>candidate mapping tables from NVAPI concept → DX12 concept,</li>
+  <li>code search prompts,</li>
+  <li>pseudo-wrappers,</li>
+  <li>review checklists.</li>
+</ul>
+
+<p>AI should <strong>not</strong> be trusted to assert semantic equivalence without owner review.</p>
+
+<h4>5.4 Pick 1–2 pilot replacements</h4>
+<p>Choose only high-leverage, low-risk candidates:</p>
+<ul>
+  <li>something common across many failed traces,</li>
+  <li>something with a plausible DX12 substitute,</li>
+  <li>something measurable on NV after replacement.</li>
+</ul>
+
+<hr>
+
+<h2>Phase 6: Measure perf delta on NV: “NVAPI vs standard DX”</h2>
+
+<p>This is the most decision-useful part of the study.</p>
+
+<h4>6.1 Pick only representative traces</h4>
+<p>Do not benchmark all 17 first. Start with:</p>
+<ul>
+  <li>1 trace that already passes on AMD,</li>
+  <li>2–3 traces that fail due to suspected NVAPI-heavy paths,</li>
+  <li>1 RT-heavy / AS-heavy case if that’s a major failure mode.</li>
+</ul>
+
+<h4>6.2 Define apples-to-apples metrics</h4>
+<p>Collect on NV:</p>
+<ul>
+  <li>replay success,</li>
+  <li>frame time / iteration timing,</li>
+  <li>bucket timing from <code>DynamicBucketing.csv</code>,</li>
+  <li>optionally frame submit / finish timing from Pylon replay outputs where available. The APIC/Pylon guide shows iteration timing/perf output and saved timing CSVs from replay.</li>
+</ul>
+
+<h4>6.3 Compare three modes when possible</h4>
+<p>For each selected trace:</p>
+<ul>
+  <li>Original NVAPI path</li>
+  <li>Skip/disable NVAPI path</li>
+  <li>Standard-DX replacement path</li>
+</ul>
+
+<p>This lets you separate:</p>
+<ul>
+  <li>“NVAPI is needed for correctness”</li>
+  <li>“NVAPI matters for perf”</li>
+  <li>“DX path is good enough”</li>
+</ul>
+
+<h4>6.4 Report perf delta in the way management wants</h4>
+<p>For each test case, summarize:</p>
+<ul>
+  <li>functional status,</li>
+  <li>frame-level perf delta,</li>
+  <li>bucket-level perf delta on the hot buckets,</li>
+  <li>whether the delta is acceptable for competition analysis.</li>
+</ul>
+
+<p>A small frame-level delta with similar hot-bucket ordering may be “good enough” for your use case even if it is not exact.</p>
+
+<hr>
+
+<h2>Phase 7: Solve the “per-drawcall package” question properly</h2>
+
+<h4>7.1 Align expectations with current tooling</h4>
+<p>Internally, GIFT/PIC-Perfalyze is bucket-based, and your prior thread confirms current use is bucket-level even if old naming still says “per-drawcall.”</p>
+
+<h4>7.2 Define what package you will actually deliver</h4>
+<p>I would package competition data as:</p>
+<ul>
+  <li>trace metadata,</li>
+  <li>bucket key list,</li>
+  <li><code>DynamicBucketing.csv</code>,</li>
+  <li>bucket duration / cycle conversion method,</li>
+  <li>mapping notes to old appState or legacy flow if needed.</li>
+</ul>
+
+<p>That is much more defensible than promising literal drawcall granularity.</p>
+
+<h4>7.3 If someone insists on per-drawcall</h4>
+<p>Document it as a <strong>gap</strong>, not a failure:</p>
+<ul>
+  <li>current production flow yields bucket timing,</li>
+  <li>not true per-drawcall timing,</li>
+  <li>additional tooling/work would be needed for finer granularity.</li>
+</ul>
+
+<hr>
+
+<h2>Phase 8: Turn it into a crisp final deliverable</h2>
+
+<h4>8.1 Create a 1-page summary for your boss</h4>
+<p>Use these sections:</p>
+<ul>
+  <li>Goal</li>
+  <li>Dataset: 17 traces, 3 currently pass on AMD</li>
+  <li>Findings:
+    <ul>
+      <li>NVAPI correlation with failure</li>
+      <li>top failing NVAPI families</li>
+      <li>skip-only results</li>
+      <li>replacement feasibility</li>
+      <li>NV perf delta</li>
+    </ul>
+  </li>
+  <li>Recommendation:
+    <ul>
+      <li>what to unblock now,</li>
+      <li>what to prototype next,</li>
+      <li>what not to pursue</li>
+    </ul>
+  </li>
+</ul>
+
+<h4>8.2 Attach an appendix spreadsheet</h4>
+<p>Include:</p>
+<ul>
+  <li>per-trace evidence,</li>
+  <li>command lines,</li>
+  <li>logs,</li>
+  <li>replay flags tried,</li>
+  <li>outcome codes,</li>
+  <li>bucket/report status.</li>
+</ul>
+
+<h4>8.3 Make a decision table</h4>
+<p>For each failing trace:</p>
+<ul>
+  <li>Retry with flags only</li>
+  <li>Candidate for package/trace patch</li>
+  <li>Candidate for NVAPI→DX pilot</li>
+  <li>Not worth pursuing now</li>
+</ul>
+
+<p>That turns your study into an execution plan.</p>
+
+<hr>
+
+<h3>Suggested execution order for next week</h3>
+
+<h4>Day 1</h4>
+<ul>
+  <li>Build tracker</li>
+  <li>Normalize logs</li>
+  <li>Classify all 17 traces</li>
+  <li>Mark API type and report availability</li>
+</ul>
+
+<h4>Day 2</h4>
+<ul>
+  <li>Run A/B replay experiments with <code>--no-nvapi-replay</code>, <code>--no-nvapi-latency-marker-replay</code>, <code>--no-app-profile</code></li>
+  <li>Update causality labels</li>
+</ul>
+
+<h4>Day 3</h4>
+<ul>
+  <li>Extract top NVAPI blocker families</li>
+  <li>Pick 2 replacement candidates</li>
+  <li>Pick 3 representative traces for NV perf benchmarking</li>
+</ul>
+
+<h4>Day 4</h4>
+<ul>
+  <li>Run NVAPI vs skip vs DX-path benchmarks on NV</li>
+  <li>Compare bucket timing and frame timing</li>
+</ul>
+
+<h4>Day 5</h4>
+<ul>
+  <li>Write final summary</li>
+  <li>Build recommendation matrix</li>
+  <li>Review with owners if needed</li>
+</ul>
+
+<hr>
+
+<h3>Practical tips</h3>
+
+<ul>
+  <li>Prioritize the <strong>14 failures</strong>, not the 3 passes.</li>
+  <li>Don’t chase every NVAPI call; chase the <strong>first causally useful families</strong>.</li>
+  <li>Treat “runs on AMD” and “produces usable bucket timing” as separate gates.</li>
+  <li>Avoid deep replay-core speculation since you cannot patch core Pylon anyway.</li>
+  <li>Use the existing replay knobs aggressively before proposing engineering work.</li>
+</ul>
+
+<hr>
+
+<h3>My short recommendation</h3>
+
+<p>If I were you, I would focus on this exact question sequence:</p>
+
+<ol>
+  <li>Which failed traces become runnable with <code>--no-nvapi-replay</code>?</li>
+  <li>Among the remaining failures, which NVAPI families appear closest to the crash/hang point?</li>
+  <li>Which of those families are optional versus semantically required?</li>
+  <li>For the optional ones, can a standard DX path preserve enough correctness?</li>
+  <li>On NV, how much bucket-level perf changes when using the DX path instead of NVAPI?</li>
+</ol>
+
+<p>That sequence will answer your boss’s questions with the least wasted effort.</p>
+
+<hr>
+
+<p>If you want, I can next turn this into a <strong>copy-pasteable working checklist</strong> with checkboxes and a suggested spreadsheet schema you can use immediately.</p>
+
+</body>
+</html>
